@@ -3,6 +3,9 @@ package scene;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;  // Use VBox for vertical alignment
 import manager.SceneManager;
 import model.GameConfigureManager;
@@ -34,9 +37,16 @@ public class MainMenuState implements SceneState {
         root.setStyle("-fx-alignment: center;"); // Center the buttons horizontally
         String cssPath = getClass().getClassLoader().getResource("css/MainMenu.css").toExternalForm();
         root.getStylesheets().add(cssPath);
-
         
-        sceneManager.getStage().setScene(new Scene(root, 800, 600));
+
+        // Add Background
+        String path = ClassLoader.getSystemResource("images/MainMenuImg/MainMenuBg.png").toString();
+        Image image = new Image(path);
+        ImageView bgView = new ImageView(image);
+        StackPane pane = new StackPane();
+        pane.getChildren().addAll(bgView, root);
+        
+        sceneManager.getStage().setScene(new Scene(pane, 800, 600));
         sceneManager.getStage().setTitle("Main Menu");
         sceneManager.getStage().show();
     }
