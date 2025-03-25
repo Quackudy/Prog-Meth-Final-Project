@@ -1,7 +1,5 @@
 package scene;
 
-import java.net.URL;
-
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,7 +32,6 @@ public class MainMenuState implements SceneState {
         root.setPadding(new Insets(5, 5, 5, 5)); // Set padding around the VBox
         root.setStyle("-fx-alignment: center;"); // Center the buttons horizontally
         String cssPath = getClass().getClassLoader().getResource("css/MainMenu.css").toExternalForm();
-        
         root.getStylesheets().add(cssPath);
 
         
@@ -42,4 +39,10 @@ public class MainMenuState implements SceneState {
         sceneManager.getStage().setTitle("Main Menu");
         sceneManager.getStage().show();
     }
+
+	@Override
+	public void stop(SceneManager sceneManager) {
+		// This do nothing na
+		System.out.println("Main Menu is stopping...");
+	}
 }

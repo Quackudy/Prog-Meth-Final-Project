@@ -26,4 +26,10 @@ public class SettingsState implements SceneState {
         sceneManager.getStage().show();
     }
 
+	@Override
+	public void stop(SceneManager sceneManager) {
+		System.out.println("Setting is stopping...");
+		
+	}
+
 }
