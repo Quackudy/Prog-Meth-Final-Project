@@ -1,45 +1,39 @@
 package map;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class GrassLand {
-    private Image tileImage; // Single tile image
-    private int rows = 15;     // Number of rows in the grid
-    private int cols = 20;     // Number of columns in the grid
-    private double tileWidth = 40;  // Width of each tile (in pixels)
-    private double tileHeight = 40; // Height of each tile (in pixels)
+    private int rows = 15;
+    private int cols = 20;
+    private double tileSize = 40; // Each tile is 64x64
 
-    public GrassLand(String tileImagePath) {
-        String imagePath = ClassLoader.getSystemResource(tileImagePath).toString();
-        this.tileImage = new Image(imagePath);
+    private Tile[][] tiles;
+
+    public GrassLand() {
+        tiles = new Tile[rows][cols];
     }
 
-    // Method to create the GrassLand grid with adjustable tile size
     public GridPane createGrassLand() {
         GridPane grid = new GridPane();
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                ImageView tileView = new ImageView(tileImage); // Create new ImageView for each tile
+                TileType type = TileType.GRASS;
 
-                // Scale the tile to the specified width and height
-                tileView.setFitWidth(tileWidth);  // Set the width of each tile
-                tileView.setFitHeight(tileHeight); // Set the height of each tile
-                tileView.setPreserveRatio(true);  // Keep the aspect ratio intact
+                Tile tile = new Tile("images/grass/centerGrass.png", type, tileSize);
+                tiles[row][col] = tile;
 
-                // Add the tile to the grid at the correct position
-                grid.add(tileView, col, row);
+                grid.add(tile.getImageView(), col, row);
             }
         }
 
         return grid;
     }
 
-    // Setter methods to change tile width and height if needed
-    public void setTileSize(double width, double height) {
-        this.tileWidth = width;
-        this.tileHeight = height;
+    public Tile getTile(int row, int col) {
+        if (row < 0 || row >= rows || col < 0 || col >= cols) {
+            return null; // Out of bounds
+        }
+        return tiles[row][col];
     }
 }

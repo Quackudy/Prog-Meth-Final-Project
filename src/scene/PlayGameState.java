@@ -1,14 +1,10 @@
 package scene;
 
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import main.GameLoop;
 import manager.SceneManager;
 import map.GrassLand;
-import model.GameConfigureManager;
-import model.GameMode;
 
 public class PlayGameState implements SceneState {
     private GameLoop gameLoop;
@@ -23,7 +19,7 @@ public class PlayGameState implements SceneState {
         //gameLoop.start();
 
         
-    	grassLand = new GrassLand("images/grass/centerGrass.png");
+    	grassLand = new GrassLand();
 			
 
         StackPane root = new StackPane();
