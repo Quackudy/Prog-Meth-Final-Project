@@ -20,7 +20,7 @@ public class GrassLand {
             for (int col = 0; col < cols; col++) {
                 TileType type = TileType.GRASS;
 
-                Tile tile = new Tile("images/grass/centerGrass.png", type, tileSize);
+                Tile tile = new Tile("images/Blue_player/1.png", type, tileSize);
                 tiles[row][col] = tile;
 
                 grid.add(tile.getImageView(), col, row);
