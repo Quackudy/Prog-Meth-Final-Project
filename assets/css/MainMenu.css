@@ -1,0 +1,22 @@
+.button {
+    -fx-font-size: 20px;
+    -fx-background-color: #8B0000;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, black, 2, 0, 0, 0);
+    -fx-cursor: hand;
+    -fx-min-width: 200px;
+    -fx-min-height: 50px;
+    -fx-padding: 10;
+    -fx-border-width: 0; 
+}
+
+
+.button:hover {
+    -fx-background-color: #8A2020;
+    -fx-effect: dropshadow(gaussian, black, 2, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: #B22222;
+    -fx-effect: dropshadow(gaussian, white, 2, 0, 0, 0);
+}
