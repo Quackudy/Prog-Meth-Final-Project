@@ -11,6 +11,7 @@ import model.GameMode;
 public class MainMenuState implements SceneState {
     @Override
     public void start(SceneManager sceneManager) {
+    	// Button
         Button singlePlayerButton = new Button("Singleplayer");
         singlePlayerButton.setOnAction(e -> {sceneManager.setState(new PlayGameState());
         										GameConfigureManager.getInstance().setGameMode(GameMode.SINGLEPLAYER);
@@ -26,7 +27,7 @@ public class MainMenuState implements SceneState {
 
         Button quitButton = new Button("Quit");
         quitButton.setOnAction(e -> System.exit(0));
-
+		
         // Use VBox for vertical arrangement
         VBox root = new VBox(10, singlePlayerButton, multiplayerButton, settingsButton, quitButton);
         root.setPadding(new Insets(5, 5, 5, 5)); // Set padding around the VBox
