@@ -7,15 +7,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;  // Use VBox for vertical alignment
 import manager.SceneManager;
+import model.GameConfigureManager;
+import model.GameMode;
 
 public class MainMenuState implements SceneState {
     @Override
     public void start(SceneManager sceneManager) {
         Button singlePlayerButton = new Button("Singleplayer");
-        singlePlayerButton.setOnAction(e -> sceneManager.setState(new SinglePlayerState()));
+        singlePlayerButton.setOnAction(e -> {sceneManager.setState(new PlayGameState());
+        										GameConfigureManager.getInstance().setGameMode(GameMode.SINGLEPLAYER);
+        									});
 
         Button multiplayerButton = new Button("Multiplayer");
-        multiplayerButton.setOnAction(e -> sceneManager.setState(new MultiplayerState()));
+        multiplayerButton.setOnAction(e -> {sceneManager.setState(new PlayGameState());
+												GameConfigureManager.getInstance().setGameMode(GameMode.MULTIPLAYER);
+											});
 
         Button settingsButton = new Button("Settings");
         settingsButton.setOnAction(e -> sceneManager.setState(new SettingsState()));
@@ -28,6 +34,7 @@ public class MainMenuState implements SceneState {
         root.setPadding(new Insets(5, 5, 5, 5)); // Set padding around the VBox
         root.setStyle("-fx-alignment: center;"); // Center the buttons horizontally
         String cssPath = getClass().getClassLoader().getResource("css/MainMenu.css").toExternalForm();
+        
         root.getStylesheets().add(cssPath);
 
         
