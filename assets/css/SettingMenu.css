@@ -57,3 +57,12 @@
     -fx-border-color: white; 
 	-fx-border-width: 2;
 }
+
+/* Style Title */
+#label-title{
+	-fx-font-size: 50px;           /* Set the font size */
+	-fx-font-weight: bold;         /* Make the font bold */
+	-fx-text-fill: white;         /* Text Color */
+	-fx-padding: 10px;             /* Add some padding around the label */
+	-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
+}

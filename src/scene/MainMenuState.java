@@ -3,8 +3,11 @@ package scene;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;  // Use VBox for vertical alignment
 import manager.SceneManager;
@@ -14,6 +17,9 @@ import model.GameMode;
 public class MainMenuState implements SceneState {
     @Override
     public void start(SceneManager sceneManager) {
+    	// Title
+    	Label Title = new Label("Game Name");
+    	
     	// Button
         Button singlePlayerButton = new Button("Singleplayer");
         singlePlayerButton.setOnAction(e -> {sceneManager.setState(new PlayGameState());
@@ -30,10 +36,14 @@ public class MainMenuState implements SceneState {
 
         Button quitButton = new Button("Quit");
         quitButton.setOnAction(e -> System.exit(0));
-		
+        
         // Use VBox for vertical arrangement
-        VBox root = new VBox(10, singlePlayerButton, multiplayerButton, settingsButton, quitButton);
-        root.setPadding(new Insets(5, 5, 5, 5)); // Set padding around the VBox
+        VBox buttons = new VBox(singlePlayerButton, multiplayerButton, settingsButton, quitButton);
+        buttons.setSpacing(10);
+        buttons.setPadding(new Insets(5, 5, 5, 5)); // Set padding around the VBox
+        buttons.setStyle("-fx-alignment: center;"); // Center the buttons horizontally
+        VBox root = new VBox(Title, buttons);
+        root.setSpacing(100);
         root.setStyle("-fx-alignment: center;"); // Center the buttons horizontally
         String cssPath = getClass().getClassLoader().getResource("css/MainMenu.css").toExternalForm();
         root.getStylesheets().add(cssPath);
