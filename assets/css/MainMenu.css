@@ -1,13 +1,18 @@
 .button {
-    -fx-font-size: 20px;
     -fx-background-color: #8B0000;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, black, 2, 0, 0, 0);
     -fx-cursor: hand;
-    -fx-min-width: 200px;
-    -fx-min-height: 50px;
+    -fx-min-width: 250px;
+    -fx-min-height: 60px;
     -fx-padding: 10;
-    -fx-border-width: 0; 
+    -fx-border-width: 0;
+}
+
+.button .text{
+	-fx-font-size: 25px;
+	-fx-fill: white;
+	-fx-stroke: black;
+	-fx-stroke-width: 0.5px;
+	-fx-effect: dropshadow(gaussian, black, 3, 0.1, 0, 0);
 }
 
 
