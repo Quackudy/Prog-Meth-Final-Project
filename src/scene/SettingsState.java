@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import manager.SceneManager;
+import model.GameConfigureManager;
 
 public class SettingsState implements SceneState {
     @Override
@@ -22,8 +23,10 @@ public class SettingsState implements SceneState {
         Slider volumeSlider = new Slider(0, 1, 1);
         volumeSlider.setOnMouseReleased(e -> {
             // Save the volume setting or apply it
-            System.out.println("Volume set to: " + volumeSlider.getValue());
+            GameConfigureManager.getInstance().setVolume(volumeSlider.getValue());
         });
+        
+ 
         
         Button backButton = new Button("Back to Main Menu");
         backButton.setOnAction(e -> sceneManager.setState(new MainMenuState()));

@@ -9,9 +9,13 @@ public class GameConfigureManager {
     private GameMode gameMode = GameMode.SINGLEPLAYER; // Default is SinglePlayer
 
     private double volume = 1.0; // Default volume level
+    
+    private Sound sound;
 
     // Private constructor to prevent instantiation
-    private GameConfigureManager() {}
+    private GameConfigureManager() {
+    	sound = new Sound(this.volume);
+    }
 
     // Public method to get the instance of the Singleton
     public static GameConfigureManager getInstance() {
@@ -36,6 +40,8 @@ public class GameConfigureManager {
     }
 
     public void setVolume(double volume) {
+    	// TO DO: Call Method from Sound class
+    	sound.setSoundVolume(volume);
         this.volume = volume;
     }
 
