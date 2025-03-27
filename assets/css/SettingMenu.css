@@ -1,0 +1,68 @@
+/* Style Slider */
+.slider {
+    -fx-pref-width: 500px;      /* Set the width of the slider */
+    -fx-max-width: 500px;       /* Ensures it doesn't stretch */
+    -fx-control-inner-background: #34495e; /* Dark background color */
+    -fx-accent: #1abc9c;        /* Teal color for the track */
+}
+
+.slider .thumb {
+    -fx-background-color: red;  /* Red knob */
+    -fx-background-radius: 50%;    /* Round knob */
+    -fx-pref-width: 30px;          /* Width of the knob */
+    -fx-pref-height: 30px;         /* Height of the knob */
+}
+
+.slider .track {
+    -fx-background-color: #95a5a6;  /* Light gray track */
+    -fx-background-radius: 10px;    /* Slightly rounded track */
+    -fx-height: 8px;                /* Height of the track */
+}
+
+/* Style Volume Label */
+.label {
+    -fx-font-size: 30px;           /* Set the font size */
+    -fx-font-weight: bold;         /* Make the font bold */
+    -fx-text-fill: white;         /* Text Color */
+    -fx-padding: 10px;             /* Add some padding around the label */
+	-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);
+}
+
+/* Style the button */
+.button {
+    -fx-background-color: #8B0000;
+    -fx-cursor: hand;
+    -fx-min-width: 300px;
+    -fx-min-height: 75px;
+    -fx-padding: 10;
+    -fx-border-width: 1;
+}
+
+.button .text{
+	-fx-font-size: 30px;
+	-fx-fill: white;
+	-fx-stroke: black;
+	-fx-stroke-width: 1px;
+	-fx-effect: dropshadow(gaussian, black, 3, 0.1, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: #8A2020;
+    -fx-border-color: black; 
+	-fx-border-width: 1;
+}
+
+.button:pressed {
+    -fx-background-color: #B22222;
+    -fx-border-color: white; 
+	-fx-border-width: 2;
+}
+
+/* Style Title */
+#label-title{
+	-fx-font-size: 50px;           /* Set the font size */
+	-fx-font-weight: bold;         /* Make the font bold */
+	-fx-text-fill: white;         /* Text Color */
+	-fx-padding: 10px;             /* Add some padding around the label */
+	-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
+}

@@ -1,6 +1,7 @@
 package scene;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import main.GameLoop;
 import manager.SceneManager;
@@ -12,25 +13,30 @@ public class PlayGameState implements SceneState {
 
     @Override
     public void start(SceneManager sceneManager) {
-        
-    	grassLand = new GrassLand();
-			
+        grassLand = new GrassLand();
 
-        StackPane root = new StackPane();
-        root.getChildren().add(grassLand.createGrassLand()); 
+        Pane rootBackground = new Pane();
+        //rootBackGround.getChildren().add(grassLand.createGrassLand());
         
-        // Initialize the game loop (Not done)
+        Pane root = new Pane();
+
+        // Initialize the game loop
         gameLoop = new GameLoop(root);
-        
-        // Start the game loop (Not done)
-        gameLoop.start();
 
-
-        root.setPrefSize(800, 600); 
-
-        sceneManager.getStage().setScene(new Scene(root, 800, 600)); 
+        // Create the scene and set it on the stage
+        Scene scene = new Scene(root, 800, 600);
+        sceneManager.getStage().setScene(scene);
         sceneManager.getStage().setTitle("Playing Game");
         sceneManager.getStage().show();
+
+        // Start the game loop
+        gameLoop.start();
+
+        // Set key event handlers after the scene is set
+        root.requestFocus();
+     
+        root.setOnKeyPressed(event -> gameLoop.handleKeyPressed(event));
+        root.setOnKeyReleased(gameLoop::handleKeyReleased);	
     }
 
     @Override
