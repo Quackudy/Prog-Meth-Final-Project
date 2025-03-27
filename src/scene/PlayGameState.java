@@ -12,21 +12,21 @@ public class PlayGameState implements SceneState {
 
     @Override
     public void start(SceneManager sceneManager) {
-        // Initialize the game loop (Not done)
-        //gameLoop = new GameLoop();
-        
-        // Start the game loop (Not done)
-        //gameLoop.start();
-
         
     	grassLand = new GrassLand();
 			
 
         StackPane root = new StackPane();
         root.getChildren().add(grassLand.createGrassLand()); 
+        
+        // Initialize the game loop (Not done)
+        gameLoop = new GameLoop(root);
+        
+        // Start the game loop (Not done)
+        gameLoop.start();
+
 
         root.setPrefSize(800, 600); 
-
 
         sceneManager.getStage().setScene(new Scene(root, 800, 600)); 
         sceneManager.getStage().setTitle("Playing Game");

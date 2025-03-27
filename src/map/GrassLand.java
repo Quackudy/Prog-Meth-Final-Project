@@ -1,11 +1,12 @@
 package map;
 
 import javafx.scene.layout.GridPane;
+import model.GameConfigureManager;
 
 public class GrassLand {
     private int rows = 15;
     private int cols = 20;
-    private double tileSize = 40; // Each tile is 64x64
+    private double tileSize = GameConfigureManager.TILESIZE; // Each tile is 64x64
 
     private Tile[][] tiles;
 
@@ -20,7 +21,7 @@ public class GrassLand {
             for (int col = 0; col < cols; col++) {
                 TileType type = TileType.GRASS;
 
-                Tile tile = new Tile("images/Blue_player/1.png", type, tileSize);
+                Tile tile = new Tile("images/grass/centerGrass.png", type, tileSize);
                 tiles[row][col] = tile;
 
                 grid.add(tile.getImageView(), col, row);

@@ -1,13 +1,25 @@
 package main;
 
+import entities.Player;
+import javafx.application.Platform;
+import javafx.scene.layout.StackPane;
+
 public class GameLoop implements Runnable {
     private boolean running = false;
     private final int TARGET_FPS = 60; // You can adjust this based on your needs
     private long lastLoopTime;
+    private StackPane root;
+    
+    private Player player = new Player(300,400);
+    Thread gameThread = new Thread(this);
+    
+    public GameLoop(StackPane root) {
+        this.root = root;
+    }
 
     public void start() {
         running = true;
-        new Thread(this).start(); // Start the loop in a new thread
+        gameThread.start(); // Start the loop in a new thread
     }
 
     public void stop() {
@@ -16,6 +28,7 @@ public class GameLoop implements Runnable {
 
     @Override
     public void run() {
+    	
         lastLoopTime = System.nanoTime();
         while (running) {
             long now = System.nanoTime();
@@ -26,7 +39,7 @@ public class GameLoop implements Runnable {
             update(deltaTime);
 
             // Render game scene
-            render();
+            Platform.runLater(() -> render());
 
             // Control frame rate (sleep to maintain the target FPS)
             try {
@@ -39,14 +52,20 @@ public class GameLoop implements Runnable {
             }
         }
     }
+    
+    private StackPane getRoot() {
+    	return this.root;
+    }
 
     private void update(long deltaTime) {
         // Update game objects (e.g., player position, enemies)
         // You would call methods to move the player, check for collisions, etc.
+    	player.update(deltaTime);
     }
 
     private void render() {
         // Render game scene to screen (redraw everything, e.g., players, enemies)
         // For example: gameScene.render();
+    	player.render(getRoot());
     }
 }

@@ -3,6 +3,7 @@ package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import manager.SceneManager;
+import model.GameConfigureManager;
 import scene.MainMenuState;
 
 public class GameApplication extends Application {
