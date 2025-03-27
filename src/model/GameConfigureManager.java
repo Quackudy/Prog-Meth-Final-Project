@@ -8,7 +8,7 @@ public class GameConfigureManager {
 
     private GameMode gameMode = GameMode.SINGLEPLAYER; // Default is SinglePlayer
 
-    private double volume = 1.0; // Default volume level
+    private double volume = 0.5; // Default volume level [1 is too loud!]
     
     private Sound sound;
 
@@ -40,7 +40,7 @@ public class GameConfigureManager {
     }
 
     public void setVolume(double volume) {
-    	// TO DO: Call Method from Sound class
+    	// TO DO: Call Method from Sound class -> Done?
     	sound.setSoundVolume(volume);
         this.volume = volume;
     }

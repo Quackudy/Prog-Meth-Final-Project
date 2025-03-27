@@ -19,14 +19,15 @@ public class SettingsState implements SceneState {
     	title.setId("label-title");
     	
     	// Volume Slider
+    	double lastVol = GameConfigureManager.getInstance().getVolume();
     	Label volumeLabel = new Label("Volume");
-        Slider volumeSlider = new Slider(0, 1, 1);
-        volumeSlider.setOnMouseReleased(e -> {
-            // Save the volume setting or apply it
+        Slider volumeSlider = new Slider(0, 1, lastVol); // Default at 0.5
+        // Make it real-time when sliding
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             GameConfigureManager.getInstance().setVolume(volumeSlider.getValue());
         });
+
         
- 
         
         Button backButton = new Button("Back to Main Menu");
         backButton.setOnAction(e -> sceneManager.setState(new MainMenuState()));

@@ -10,7 +10,7 @@ public class Sound {
 	
 	public Sound(double defaultVolume) {
 		this.volume = defaultVolume;
-		String bgmpath = ClassLoader.getSystemResource("").toString();
+		String bgmpath = getClass().getClassLoader().getResource("sound/testbgm.mp3").toString();
 		Media bgm = new Media(bgmpath);
 		bgmPlayer = new MediaPlayer(bgm);
 		bgmPlayer.setCycleCount(MediaPlayer.INDEFINITE);
