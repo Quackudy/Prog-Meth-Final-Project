@@ -9,6 +9,7 @@ import input.MoveDownCommand;
 import input.MoveLeftCommand;
 import input.MoveRightCommand;
 import input.MoveUpCommand;
+import input.ShootCommand;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -35,6 +36,7 @@ public class GameLoop implements Runnable {
         inputHandler.bindKey(KeyCode.S, new MoveDownCommand(player));
         inputHandler.bindKey(KeyCode.A, new MoveLeftCommand(player));
         inputHandler.bindKey(KeyCode.D, new MoveRightCommand(player));
+        inputHandler.bindKey(KeyCode.G, new ShootCommand(player));
 
     }
     
@@ -72,12 +74,12 @@ public class GameLoop implements Runnable {
             lastLoopTime = now;
 
             update(deltaTime);
+            
             Platform.runLater(() -> {
                 root.getChildren().clear();  
                 render();  
             });
     
-           
 
             try {
                 long sleepTime = (1000 / TARGET_FPS) - (System.nanoTime() - now) / 1000000;
