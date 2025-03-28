@@ -44,6 +44,15 @@ public class GameConfigureManager {
     	sound.setSoundVolume(volume);
         this.volume = volume;
     }
+    
+    public void playsfx(String sfx) {
+    	if (sfx.equals("hover")) {
+    		sound.ButtonHover();
+    	}
+    	else if (sfx.equals("click")) {
+    		sound.ButtonClick();
+    	}
+    }
 
 
 }

@@ -13,29 +13,51 @@ import javafx.scene.layout.VBox;  // Use VBox for vertical alignment
 import manager.SceneManager;
 import model.GameConfigureManager;
 import model.GameMode;
+import model.Sound;
 
 public class MainMenuState implements SceneState {
     @Override
     public void start(SceneManager sceneManager) {
     	// Title
-    	Label Title = new Label("Game Name");
+    	Label Title = new Label("Oiia Leveling");
     	
     	// Button
         Button singlePlayerButton = new Button("Singleplayer");
         singlePlayerButton.setOnAction(e -> {sceneManager.setState(new PlayGameState());
         										GameConfigureManager.getInstance().setGameMode(GameMode.SINGLEPLAYER);
+        										GameConfigureManager.getInstance().playsfx("click");
         									});
+        singlePlayerButton.setOnMouseEntered(e -> {
+        	GameConfigureManager.getInstance().playsfx("hover");
+        });
 
         Button multiplayerButton = new Button("Multiplayer");
         multiplayerButton.setOnAction(e -> {sceneManager.setState(new PlayGameState());
 												GameConfigureManager.getInstance().setGameMode(GameMode.MULTIPLAYER);
+												GameConfigureManager.getInstance().playsfx("click");
 											});
-
+        multiplayerButton.setOnMouseEntered(e -> {
+        	GameConfigureManager.getInstance().playsfx("hover");
+        });
+        
         Button settingsButton = new Button("Settings");
-        settingsButton.setOnAction(e -> sceneManager.setState(new SettingsState()));
+        settingsButton.setOnAction(e -> {
+        	sceneManager.setState(new SettingsState());
+        	GameConfigureManager.getInstance().playsfx("click");
+        });
+        settingsButton.setOnMouseEntered(e -> {
+        	GameConfigureManager.getInstance().playsfx("hover");
+        });
 
         Button quitButton = new Button("Quit");
-        quitButton.setOnAction(e -> System.exit(0));
+        quitButton.setOnAction(e -> {
+        	// GameConfigureManager.getInstance().playsfx("click"); -> Sound not playing because it's close too fast need to add timer if want to hear it.
+        	System.exit(0);
+        });
+        quitButton.setOnMouseEntered(e -> {
+        	GameConfigureManager.getInstance().playsfx("hover");
+        });
+        
         
         // Use VBox for vertical arrangement
         VBox buttons = new VBox(singlePlayerButton, multiplayerButton, settingsButton, quitButton);

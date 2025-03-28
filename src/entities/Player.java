@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class Player extends Entities {
 
-    private float speedFactor = 10.0f;
+    private float speedFactor = 100.0f;
     private float xSpeed = 0;
     private float ySpeed = 0;
     private int walkSpriteCount = 0;
