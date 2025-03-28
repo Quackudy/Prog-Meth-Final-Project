@@ -5,10 +5,11 @@ public class GameConfigureManager {
     // Singleton instance
     private static GameConfigureManager instance;
 
+    public final static int TILESIZE = 40;
 
     private GameMode gameMode = GameMode.SINGLEPLAYER; // Default is SinglePlayer
 
-    private double volume = 0.5; // Default volume level [1 is too loud!]
+    private double volume = 0.5;
     
     private Sound sound;
 
