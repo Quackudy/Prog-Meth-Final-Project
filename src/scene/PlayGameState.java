@@ -23,6 +23,7 @@ public class PlayGameState implements SceneState {
         // Initialize the game loop
         gameLoop = new GameLoop(root);
 
+        
         // Create the scene and set it on the stage
         Scene scene = new Scene(root, 800, 600);
         sceneManager.getStage().setScene(scene);
