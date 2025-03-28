@@ -1,6 +1,8 @@
+
 package map;
 
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import model.GameConfigureManager;
 
 public class GrassLand {
@@ -14,8 +16,9 @@ public class GrassLand {
         tiles = new Tile[rows][cols];
     }
 
-    public GridPane createGrassLand() {
+    public StackPane createGrassLand() {
         GridPane grid = new GridPane();
+        GridPane decorationGrid = new GridPane();
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -25,10 +28,24 @@ public class GrassLand {
                 tiles[row][col] = tile;
 
                 grid.add(tile.getImageView(), col, row);
+
+                // Add decorations on some tiles
+                if (Math.random() < 0.1) { // 10% chance to add a decoration
+                    String Number = String.valueOf((int) (Math.random() * 18) + 1) ;
+					if (Integer.parseInt(Number) < 10) {
+						Number = "0" + Number;
+					}
+                    String Path = "images/deco/" + Number + ".png";
+                    Tile decoration = new Tile(Path, TileType.TREE, tileSize);
+                    decorationGrid.add(decoration.getImageView(), col, row);
+                }
             }
         }
 
-        return grid;
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(grid, decorationGrid);
+
+        return stackPane;
     }
 
     public Tile getTile(int row, int col) {

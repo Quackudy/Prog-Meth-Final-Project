@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class Player extends Entities {
     private float speedFactor = 10.0f;
+    private float sizeFactor = 5.0f;
     private float xSpeed = 0;
     private float ySpeed = 0;
     private int walkSpriteCount = 0;
@@ -13,8 +14,9 @@ public class Player extends Entities {
     private Bow bow = null;
     private boolean facingRight = true;
 
-    public Player(float xPos, float yPos, float sizeFactor) {
-        super(xPos, yPos, sizeFactor);
+    public Player(float xPos, float yPos) {
+        super(xPos, yPos);
+        super.setSizeFactor(sizeFactor);
 
         this.loadSprite("walk_1", "images/Blue_player/blue_walk_1.png");
         this.loadSprite("walk_2", "images/Blue_player/blue_walk_2.png");

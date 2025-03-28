@@ -12,7 +12,8 @@ public class Bow extends Entities {
     private Player player;
 
     public Bow(Player player, boolean facingRight) {
-        super(player.getX(), player.getY(), player.getSizeFactor());
+        super(player.getX(), player.getY());
+        setSizeFactor(player.getSizeFactor());
         this.player = player;
         this.facingRight = facingRight;
 
@@ -40,14 +41,14 @@ public class Bow extends Entities {
     public void update(float deltaTime) {
         frameCounter++;
         
-        System.out.println("Player X: " + player.getX() + " Player Y: " + player.getY());
+        //System.out.println("Player X: " + player.getX() + " Player Y: " + player.getY());
         
         this.xPos = player.getX();
         this.yPos = player.getY();
         sprite.setX(xPos);
         sprite.setY(yPos);
 
-        if (frameCounter % 10 == 0) {
+        if (frameCounter % 6 == 0) {
             bowSpriteCount = (++bowSpriteCount) % 8;
             this.setSprite((facingRight ? "bow_" : "flip_bow_") + (bowSpriteCount + 1));
             if (bowSpriteCount == 7) {

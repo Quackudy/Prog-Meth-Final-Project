@@ -12,11 +12,11 @@ import java.util.Map;
 public abstract class Entities {
     protected float xPos;
 	protected float yPos;  
-	protected float sizeFactor;
+	protected float sizeFactor = 1.0f;
     protected ImageView sprite; 
     protected Map<String, ImageView> sprites; 
 
-    public Entities(float xPos, float yPos, float sizeFactor) {
+    public Entities(float xPos, float yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
 
@@ -64,6 +64,10 @@ public abstract class Entities {
     
 	public float getSizeFactor() {
 		return sizeFactor;
+	}
+	
+	public void setSizeFactor(float sizeFactor) {
+		this.sizeFactor = sizeFactor;
 	}
 
 }

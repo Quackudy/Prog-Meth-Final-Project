@@ -16,16 +16,19 @@ public class PlayGameState implements SceneState {
         grassLand = new GrassLand();
 
         Pane rootBackground = new Pane();
-        //rootBackGround.getChildren().add(grassLand.createGrassLand());
-        
+        rootBackground.getChildren().add(grassLand.createGrassLand());
+
         Pane root = new Pane();
 
         // Initialize the game loop
         gameLoop = new GameLoop(root);
 
-        
+        // Create a StackPane to layer rootBackground and root
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(rootBackground, root);
+
         // Create the scene and set it on the stage
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(stackPane, 800, 600);
         sceneManager.getStage().setScene(scene);
         sceneManager.getStage().setTitle("Playing Game");
         sceneManager.getStage().show();
@@ -35,9 +38,9 @@ public class PlayGameState implements SceneState {
 
         // Set key event handlers after the scene is set
         root.requestFocus();
-     
+
         root.setOnKeyPressed(event -> gameLoop.handleKeyPressed(event));
-        root.setOnKeyReleased(gameLoop::handleKeyReleased);	
+        root.setOnKeyReleased(gameLoop::handleKeyReleased);
     }
 
     @Override
