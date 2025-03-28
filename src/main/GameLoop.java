@@ -92,7 +92,8 @@ public class GameLoop implements Runnable {
         }
     }
     private void update(float deltaTime) {
-        for (KeyCode keyCode : activeKeys) {
+        Set<KeyCode> keysCopy = new HashSet<>(activeKeys);
+        for (KeyCode keyCode : keysCopy) {
             inputHandler.handleInput(keyCode);
         }
         player.update(deltaTime);

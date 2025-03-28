@@ -61,5 +61,9 @@ public abstract class Entities {
     public float getY() {
         return yPos;
     }
+    
+	public float getSizeFactor() {
+		return sizeFactor;
+	}
 
 }
