@@ -10,6 +10,8 @@ public class Sound {
 	
 	public Sound(double defaultVolume) {
 		this.volume = defaultVolume;
+		
+		// Play BGM
 		String bgmpath = getClass().getClassLoader().getResource("sound/testbgm.mp3").toString();
 		Media bgm = new Media(bgmpath);
 		bgmPlayer = new MediaPlayer(bgm);
@@ -20,5 +22,9 @@ public class Sound {
 	
 	public void setSoundVolume(double volume) {
 		bgmPlayer.setVolume(volume);
+	}
+	
+	public void SoundEffect1() {
+		// TO-DO : Sound effect [Shoot, die, getHit, etc.]
 	}
 }

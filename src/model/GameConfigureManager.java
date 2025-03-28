@@ -40,7 +40,6 @@ public class GameConfigureManager {
     }
 
     public void setVolume(double volume) {
-    	// TO DO: Call Method from Sound class -> Done?
     	sound.setSoundVolume(volume);
         this.volume = volume;
     }
