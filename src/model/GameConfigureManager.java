@@ -41,9 +41,17 @@ public class GameConfigureManager {
     }
 
     public void setVolume(double volume) {
-    	// TO DO: Call Method from Sound class -> Done?
     	sound.setSoundVolume(volume);
         this.volume = volume;
+    }
+    
+    public void playsfx(String sfx) {
+    	if (sfx.equals("hover")) {
+    		sound.ButtonHover();
+    	}
+    	else if (sfx.equals("click")) {
+    		sound.ButtonClick();
+    	}
     }
 
 

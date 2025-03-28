@@ -28,10 +28,18 @@ public class SettingsState implements SceneState {
         });
 
         
-        
+        // Back Button
         Button backButton = new Button("Back to Main Menu");
-        backButton.setOnAction(e -> sceneManager.setState(new MainMenuState()));
+        backButton.setOnAction(e -> {
+        	sceneManager.setState(new MainMenuState());
+        	GameConfigureManager.getInstance().playsfx("click");
+        });
+        backButton.setOnMouseEntered(e -> {
+        	GameConfigureManager.getInstance().playsfx("hover");
+        });
         
+        
+        // V-Box for vertical Arrangement
         VBox volume = new VBox(volumeLabel, volumeSlider);
         volume.setSpacing(5);
         volume.setStyle("-fx-alignment: center;");
