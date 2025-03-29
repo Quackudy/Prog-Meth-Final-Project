@@ -3,7 +3,6 @@ package entities;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import model.GameConfigureManager;
 
 import java.util.HashMap;

@@ -21,7 +21,7 @@ public class PlayGameState implements SceneState {
         Pane root = new Pane();
 
         // Initialize the game loop
-        gameLoop = new GameLoop(root);
+        gameLoop = new GameLoop(root, true);
 
         // Create a StackPane to layer rootBackground and root
         StackPane stackPane = new StackPane();

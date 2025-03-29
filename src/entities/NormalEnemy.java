@@ -86,6 +86,8 @@ public class NormalEnemy extends Enemy {
 
     @Override
     public void render(Pane root) {
+    	
+    	
         if (!root.getChildren().contains(sprite)) {
             root.getChildren().add(sprite);
         }

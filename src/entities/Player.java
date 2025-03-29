@@ -1,7 +1,7 @@
 
 package entities;
 
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.Pane;
 
 public class Player extends Entities {
@@ -14,9 +14,10 @@ public class Player extends Entities {
     private Bow bow = null;
     private boolean facingRight = true;
 
-    public Player(float xPos, float yPos) {
+    public Player(float xPos, float yPos) {	
         super(xPos, yPos);
         super.setSizeFactor(sizeFactor);
+        
 
         this.loadSprite("walk_1", "images/Blue_player/blue_walk_1.png");
         this.loadSprite("walk_2", "images/Blue_player/blue_walk_2.png");
@@ -50,6 +51,8 @@ public class Player extends Entities {
                 bow = null;
             }
         }
+        
+        
 
         if (isWalking() && frameCounter % 10 == 0) {
             walkSpriteCount = (++walkSpriteCount) % 6;
@@ -64,7 +67,7 @@ public class Player extends Entities {
 
     @Override
     public void render(Pane root) {
-        ImageView sprite = this.getSprite();
+        //ImageView sprite = this.getSprite();
         if (!root.getChildren().contains(sprite)) {
             root.getChildren().add(sprite);
         }

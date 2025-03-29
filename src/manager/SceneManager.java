@@ -13,7 +13,13 @@ public class SceneManager {
         this.stage = stage;
     }
 
-    // Public method to get the singleton instance
+    public static SceneManager getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("SceneManager has not been initialized with a Stage.");
+        }
+        return instance;
+    }
+
     public static SceneManager getInstance(Stage stage) {
         if (instance == null) {
             instance = new SceneManager(stage); // Create the instance if it doesn't exist

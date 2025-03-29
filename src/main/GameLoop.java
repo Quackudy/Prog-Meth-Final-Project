@@ -1,13 +1,13 @@
 
 package main;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.concurrent.CopyOnWriteArraySet;
 import manager.EntityManager;
-import entities.EnemyFactory;
-import entities.NormalEnemy;
+import manager.SceneManager;
+import scene.MainMenuState;
+import entities.EntityFactory;
 import entities.Player;
+import input.ExitGameCommand;
 import input.InputHandler;
 import input.MoveDownCommand;
 import input.MoveLeftCommand;
@@ -21,18 +21,19 @@ import javafx.scene.input.KeyEvent;
 
 public class GameLoop implements Runnable {
     private boolean running = false;
-    private final int TARGET_FPS = 60;
+    private final int TARGET_FPS = 300;
     private long lastLoopTime;
     private Pane root;
     private EntityManager entityManager = EntityManager.getInstance();
     private InputHandler inputHandler = new InputHandler();
-    private final Set<KeyCode> activeKeys = new HashSet<>();
+    private final CopyOnWriteArraySet<KeyCode> activeKeys = new CopyOnWriteArraySet<>();
     Thread gameThread = new Thread(this);
 
-    public GameLoop(Pane root) {
+    public GameLoop(Pane root, boolean debugMode) {
         this.root = root;
         initializeEntities();
         initializeInputHandler();
+        entityManager.setDebugMode(debugMode);
     }
 
     private void initializeInputHandler() {
@@ -44,14 +45,13 @@ public class GameLoop implements Runnable {
         inputHandler.bindKey(KeyCode.A, new MoveLeftCommand(player));
         inputHandler.bindKey(KeyCode.D, new MoveRightCommand(player));
         inputHandler.bindKey(KeyCode.G, new ShootCommand(player));
+        inputHandler.bindKey(KeyCode.ESCAPE, new ExitGameCommand(this));
+        
     }
 
     private void initializeEntities() {
-        Player player = new Player(300, 400);
-        entityManager.addEntity(player);
-        NormalEnemy enemy = (NormalEnemy) EnemyFactory.createEnemy("normal", 400, 300);
-        entityManager.addEntity(enemy);
-    
+        EntityFactory.createPlayer(300, 400);
+        EntityFactory.createNormalEnemy(200, 300);
     }
 
     public void handleKeyPressed(KeyEvent event) {
@@ -69,15 +69,25 @@ public class GameLoop implements Runnable {
 
     public void stop() {
         running = false;
-        try {
-            gameThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Delay to not let thread access the to be destroyed variable
+        new Thread(() -> {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                EntityManager.destroyInstance();
+                SceneManager.getInstance().setState(new MainMenuState());
+            });
+        }).start();
     }
 
     @Override
     public void run() {
+    	
+    	entityManager.printEntities();
+    	
         lastLoopTime = System.nanoTime();
         while (running) {
             long now = System.nanoTime();
@@ -103,8 +113,7 @@ public class GameLoop implements Runnable {
     }
 
     private void update(float deltaTime) {
-        Set<KeyCode> keysCopy = new HashSet<>(activeKeys);
-        for (KeyCode keyCode : keysCopy) {
+        for (KeyCode keyCode : activeKeys) {
             inputHandler.handleInput(keyCode);
         }
         entityManager.updateAll(deltaTime);

@@ -55,6 +55,7 @@ public class Bow extends Entities {
                 finished = true;
             }
         }
+        
     }
 
     @Override

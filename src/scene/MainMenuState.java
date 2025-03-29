@@ -86,6 +86,6 @@ public class MainMenuState implements SceneState {
 	@Override
 	public void stop(SceneManager sceneManager) {
 		// This do nothing na
-		System.out.println("Main Menu is stopping...");
+		
 	}
 }
