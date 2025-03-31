@@ -3,7 +3,7 @@ package entities;
 
 import javafx.scene.layout.Pane;
 
-public abstract class Enemy extends Entities implements Damageable {
+public abstract class Unit extends Entities implements Damageable {
     protected int health = 1;
     protected float speedFactor = 10.0f;
     protected float sizeFactor = 5.0f;
@@ -12,30 +12,22 @@ public abstract class Enemy extends Entities implements Damageable {
     protected int frameCounter = 0;
     protected boolean facingRight = true;
 
-    public Enemy(float xPos, float yPos) {
+    public Unit(float xPos, float yPos) {
         super(xPos, yPos);
+        setFaction(Faction.ENEMY);
     }
 
-	public abstract void attack(Player player);
 
     @Override
     public void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health <= 0) {
-            this.die();
-        }
+        setHealth(getHealth()-damage);
+        
     }
 
-    protected void die() {
-        // Handle enemy death (not done)
+    public boolean isDead() {
+    	return (getHealth() <= 0);
     }
 
-    @Override
-    public abstract void update(float deltaTime);
-
-    @Override
-    public abstract void render(Pane root);
-    
     public float getSpeedFactor() {
 		return speedFactor;
 	}

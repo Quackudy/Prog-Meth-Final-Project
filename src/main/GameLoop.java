@@ -7,12 +7,10 @@ import manager.SceneManager;
 import scene.MainMenuState;
 import entities.EntityFactory;
 import entities.Player;
+import input.Direction;
 import input.ExitGameCommand;
 import input.InputHandler;
-import input.MoveDownCommand;
-import input.MoveLeftCommand;
-import input.MoveRightCommand;
-import input.MoveUpCommand;
+import input.MovePlayerCommand;
 import input.ShootCommand;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
@@ -21,7 +19,7 @@ import javafx.scene.input.KeyEvent;
 
 public class GameLoop implements Runnable {
     private boolean running = false;
-    private final int TARGET_FPS = 300;
+    private final int TARGET_FPS = 60;
     private long lastLoopTime;
     private Pane root;
     private EntityManager entityManager = EntityManager.getInstance();
@@ -40,11 +38,17 @@ public class GameLoop implements Runnable {
     	//come here to fix code for multiplayer later
     	
         Player player = entityManager.getPlayer(0);
-        inputHandler.bindKey(KeyCode.W, new MoveUpCommand(player));
-        inputHandler.bindKey(KeyCode.S, new MoveDownCommand(player));
-        inputHandler.bindKey(KeyCode.A, new MoveLeftCommand(player));
-        inputHandler.bindKey(KeyCode.D, new MoveRightCommand(player));
-        inputHandler.bindKey(KeyCode.G, new ShootCommand(player));
+        
+        inputHandler.bindKey(KeyCode.W, new MovePlayerCommand(player, Direction.UP));
+        inputHandler.bindKey(KeyCode.A, new MovePlayerCommand(player, Direction.LEFT));
+        inputHandler.bindKey(KeyCode.D, new MovePlayerCommand(player, Direction.RIGHT));
+        inputHandler.bindKey(KeyCode.S, new MovePlayerCommand(player, Direction.DOWN));
+        
+        inputHandler.bindKey(KeyCode.Y, new ShootCommand(player, Direction.UP));
+        inputHandler.bindKey(KeyCode.G, new ShootCommand(player, Direction.LEFT));
+        inputHandler.bindKey(KeyCode.J, new ShootCommand(player, Direction.RIGHT));
+        inputHandler.bindKey(KeyCode.H, new ShootCommand(player, Direction.DOWN));
+        
         inputHandler.bindKey(KeyCode.ESCAPE, new ExitGameCommand(this));
         
     }
@@ -52,6 +56,8 @@ public class GameLoop implements Runnable {
     private void initializeEntities() {
         EntityFactory.createPlayer(300, 400);
         EntityFactory.createNormalEnemy(200, 300);
+        EntityFactory.createNormalEnemy(400, 300);
+        EntityFactory.createNormalEnemy(700, 600);
     }
 
     public void handleKeyPressed(KeyEvent event) {
@@ -86,7 +92,8 @@ public class GameLoop implements Runnable {
     @Override
     public void run() {
     	
-    	entityManager.printEntities();
+    	//Uncomment to print list of initialized entity (only at the start of the game)
+    	//entityManager.printEntities();
     	
         lastLoopTime = System.nanoTime();
         while (running) {
@@ -117,6 +124,8 @@ public class GameLoop implements Runnable {
             inputHandler.handleInput(keyCode);
         }
         entityManager.updateAll(deltaTime);
+        entityManager.removeOffScreenAttackEntity();
+        entityManager.attackHit();
     }
 
     private void render() {

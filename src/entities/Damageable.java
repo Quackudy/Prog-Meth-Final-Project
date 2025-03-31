@@ -1,5 +1,7 @@
 package entities;
 
 public interface Damageable {
-    void takeDamage(int damage);
+	public void takeDamage(int Damage);
+	
+	public boolean isDead();
 }

@@ -1,5 +1,7 @@
+
 package entities;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -9,48 +11,84 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Entities {
-    protected float xPos;
-	protected float yPos;  
-	protected float sizeFactor = 1.0f;
-    protected ImageView sprite; 
-    protected Map<String, ImageView> sprites; 
+    protected Faction faction = Faction.NEUTRAL;
+    protected float xPos, yPos;
+    protected double hitboxWidth, hitboxHeight;
+    protected float sizeFactor = 1.0f;
+    protected Rectangle2D hitbox;
+    protected ImageView sprite;
+    protected Map<String, ImageView> sprites;
 
     public Entities(float xPos, float yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
 
         this.sprites = new HashMap<>();
-    
         this.sprite = new ImageView();
-        sprite.setX(xPos);
-        sprite.setY(yPos);
+        
+        this.hitboxWidth = getSprite().getFitWidth();
+        this.hitboxHeight = getSprite().getFitHeight();
+        
+        this.hitbox = new Rectangle2D(xPos-hitboxWidth/2, yPos-hitboxHeight/2, hitboxWidth, hitboxHeight);
+    }
+    
+    public Rectangle2D getHitbox() {
+        return hitbox;
     }
 
-    public abstract void update(float deltaTime);  
-    public abstract void render(Pane root); 
+    public void updateHitbox() {
+        this.hitbox = new Rectangle2D(xPos-hitboxWidth/2, yPos-hitboxHeight/2, hitboxWidth, hitboxHeight);
+    }
+    
+    public void setSize(double width, double height) {
+    	this.hitboxWidth = width;
+    	this.hitboxHeight = height;
+    }
 
-    //This is for setting name for a sprite, and you can use setSprite without specifying path again!
+    public abstract void update(float deltaTime);
+    
+    public void render(Pane root) {
+        if (!root.getChildren().contains(sprite)) {
+            root.getChildren().add(sprite);
+        }
+    };
+
     public void loadSprite(String name, String imagePath) {
-        Image image = new Image(imagePath);  
-        ImageView imageView = new ImageView(image);  
-        imageView.setFitWidth(GameConfigureManager.TILESIZE*sizeFactor);
-        imageView.setFitHeight(GameConfigureManager.TILESIZE*sizeFactor);
+        Image image = new Image(imagePath);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(GameConfigureManager.TILESIZE * sizeFactor);
+        imageView.setFitHeight(GameConfigureManager.TILESIZE * sizeFactor);
         imageView.setPreserveRatio(false);
-        sprites.put(name, imageView); 
+        sprites.put(name, imageView);
+    }
+
+    public void updateSpritePosition() {
+        if (sprite != null && sprite.getImage() != null) {
+            sprite.setX(xPos - sprite.getFitWidth() / 2);
+            sprite.setY(yPos - sprite.getFitHeight() / 2);
+        }
     }
 
     public void setSprite(String name) {
-        this.sprite = sprites.get(name);  
-        if (this.sprite != null) {
-            sprite.setX(xPos);
-            sprite.setY(yPos);
+        ImageView newSprite = sprites.get(name);
+        if (newSprite != null) {
+            this.sprite = newSprite;
+            updateSpritePosition();
         } else {
-            System.out.println("Sprite not found: " + name);
+            System.err.println("Sprite not found: " + name + " for entity: " + this.getClass().getSimpleName());
         }
     }
-    
+
     public ImageView getSprite() {
         return sprite;
+    }
+
+    public Faction getFaction() {
+        return faction;
+    }
+
+    public void setFaction(Faction faction) {
+        this.faction = faction;
     }
 
     public float getX() {
@@ -60,13 +98,12 @@ public abstract class Entities {
     public float getY() {
         return yPos;
     }
-    
-	public float getSizeFactor() {
-		return sizeFactor;
-	}
-	
-	public void setSizeFactor(float sizeFactor) {
-		this.sizeFactor = sizeFactor;
-	}
 
+    public float getSizeFactor() {
+        return sizeFactor;
+    }
+
+    public void setSizeFactor(float sizeFactor) {
+        this.sizeFactor = sizeFactor;
+    }
 }

@@ -1,5 +1,6 @@
 package entities;
 
+import input.Direction;
 import manager.EntityManager;
 
 public class EntityFactory {
@@ -14,5 +15,22 @@ public class EntityFactory {
 		NormalEnemy normalEnemy = new NormalEnemy(xPos, yPos);
 		EntityManager.getInstance().addEntity(normalEnemy);
 		return normalEnemy;
+	}
+	
+	public static Bow createBow(Player player, boolean playerFacingRight, Direction arrowDirection) {
+		Bow bow = new Bow(player, playerFacingRight, arrowDirection);
+		EntityManager.getInstance().addEntity(bow);
+		return bow;
+	}
+	
+	public static Arrow createArrow(Bow bow) {
+		Arrow arrow = new Arrow(bow);
+		EntityManager.getInstance().addEntity(arrow);
+		return arrow;
+	}
+	
+	
+	public static void removeEntity(Entities entity) {
+		EntityManager.getInstance().removeEntity(entity);
 	}
 }

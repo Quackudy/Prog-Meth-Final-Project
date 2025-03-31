@@ -2,34 +2,38 @@
 package entities;
 
 import javafx.scene.image.ImageView;
+import input.Direction;
 import javafx.scene.layout.Pane;
 
-public class Arrow extends Entities {
-    private String direction;
+public class Arrow extends AttackEntity {
+    private Direction direction;
     private float speedFactor = 100.0f;
     private float sizeFactor = 1.5f;
 
-    public Arrow(Bow bow, String direction) {
-        super(bow.getX(), bow.getY());
+    public Arrow(Bow bow) {
+        super(bow);
+        direction = bow.getDirection();
         setSizeFactor(sizeFactor);
-        this.direction = direction;
-
+        setSize(20, 20);
+        setFaction(Faction.ALLY);
+        setDamage(5);
+        
         this.loadSprite("arrow_up", "images/arrow/arrow_up.png");
         this.loadSprite("arrow_down", "images/arrow/arrow_down.png");
         this.loadSprite("arrow_left", "images/arrow/arrow_left.png");
         this.loadSprite("arrow_right", "images/arrow/arrow_right.png");
 
         switch (direction) {
-            case "up":
+            case UP :
                 this.setSprite("arrow_up");
                 break;
-            case "down":
+            case DOWN:
                 this.setSprite("arrow_down");
                 break;
-            case "left":
+            case LEFT:
                 this.setSprite("arrow_left");
                 break;
-            case "right":
+            case RIGHT:
                 this.setSprite("arrow_right");
                 break;
         }
@@ -40,21 +44,15 @@ public class Arrow extends Entities {
 
     @Override
     public void update(float deltaTime) {
-        this.xPos += speedFactor * deltaTime * (direction.equals("left") ? -1 : (direction.equals("right") ? 1 : 0));
-        this.yPos += speedFactor * deltaTime * (direction.equals("up") ? -1 : (direction.equals("down") ? 1 : 0));
-        sprite.setX(xPos);
-        sprite.setY(yPos);
+        this.xPos += speedFactor * deltaTime * (direction==Direction.LEFT ? -1 : (direction==Direction.RIGHT ? 1 : 0));
+        this.yPos += speedFactor * deltaTime * (direction==Direction.UP ? -1 : (direction==Direction.DOWN ? 1 : 0));
+        updateSpritePosition();
+        updateHitbox();
     }
+
 
     @Override
-    public void render(Pane root) {
-        ImageView sprite = this.getSprite();
-        if (!root.getChildren().contains(sprite)) {
-            root.getChildren().add(sprite);
-        }
-    }
-
-    public boolean isFinished() {
+    public boolean isOffScreen() {
         return (getX() < 0 || getX() > 800 || getY() < 0 || getY() > 600);
     }
 }

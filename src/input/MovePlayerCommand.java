@@ -2,17 +2,17 @@ package input;
 
 import entities.Player;
 
-public class ShootCommand implements Command {
+public class MovePlayerCommand implements Command {
     private Player player;
     private Direction direction;
-    
-    public ShootCommand(Player player, Direction direction) {
+
+    public MovePlayerCommand(Player player, Direction direction) {
         this.player = player;
         this.direction = direction;
     }
 
     @Override
     public void execute() {
-        player.shootArrow(direction);
+        player.calculateSpeed(direction);
     }
 }

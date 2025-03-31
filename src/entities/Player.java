@@ -2,11 +2,12 @@
 package entities;
 
 
+import input.Direction;
 import javafx.scene.layout.Pane;
 
-public class Player extends Entities {
-    private float speedFactor = 10.0f;
-    private float sizeFactor = 5.0f;
+public class Player extends Unit  {
+    private final float SPEEDFACTOR = 10.0f;
+    private final float SIZEFACTOR = 5.0f;
     private float xSpeed = 0;
     private float ySpeed = 0;
     private int walkSpriteCount = 0;
@@ -16,9 +17,10 @@ public class Player extends Entities {
 
     public Player(float xPos, float yPos) {	
         super(xPos, yPos);
-        super.setSizeFactor(sizeFactor);
-        
-
+        super.setSizeFactor(SIZEFACTOR);
+        super.setSize(60, 60);
+        super.setFaction(Faction.ALLY);
+       
         this.loadSprite("walk_1", "images/Blue_player/blue_walk_1.png");
         this.loadSprite("walk_2", "images/Blue_player/blue_walk_2.png");
         this.loadSprite("walk_3", "images/Blue_player/blue_walk_3.png");
@@ -40,14 +42,15 @@ public class Player extends Entities {
         normalizeDiagonalSpeed();
         xPos += xSpeed * deltaTime;
         yPos += ySpeed * deltaTime;
-        sprite.setX(xPos);
-        sprite.setY(yPos);
+        updateSpritePosition(); 
+        updateHitbox();
 
         frameCounter++;
 
         if (bow != null) {
             bow.update(deltaTime);
             if (bow.isFinished()) {
+            	EntityFactory.removeEntity(bow);
                 bow = null;
             }
         }
@@ -65,36 +68,25 @@ public class Player extends Entities {
         resetSpeed();
     }
 
-    @Override
-    public void render(Pane root) {
-        //ImageView sprite = this.getSprite();
-        if (!root.getChildren().contains(sprite)) {
-            root.getChildren().add(sprite);
-        }
-        if (bow != null) {
-            bow.render(root);
-        }
-    }
-
-    public void calculateSpeed(String direction) {
+    public void calculateSpeed(Direction direction) {
         switch (direction) {
-            case "Left":
-                xSpeed += -1 * speedFactor;
+            case Direction.LEFT:
+                xSpeed += -1 * SPEEDFACTOR;
                 if (facingRight) {
                     facingRight = false;
                 }
                 break;
-            case "Right":
-                xSpeed += 1 * speedFactor;
+            case Direction.RIGHT:
+                xSpeed += 1 * SPEEDFACTOR;
                 if (!facingRight) {
                     facingRight = true;
                 }
                 break;
-            case "Up":
-                ySpeed += -1 * speedFactor;
+            case Direction.UP:
+                ySpeed += -1 * SPEEDFACTOR;
                 break;
-            case "Down":
-                ySpeed += 1 * speedFactor;
+            case Direction.DOWN:
+                ySpeed += 1 * SPEEDFACTOR;
                 break;
         }
     }
@@ -115,9 +107,11 @@ public class Player extends Entities {
         return xSpeed != 0 || ySpeed != 0;
     }
 
-    public void shootArrow() {
+    public void shootArrow(Direction direction) {
         if (bow == null) {
-            bow = new Bow(this, facingRight);
+        	//bow = new Bow(this, facingRight,direction);
+            bow = EntityFactory.createBow(this, facingRight, direction);
         }
     }
+
 }
