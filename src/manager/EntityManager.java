@@ -167,7 +167,7 @@ public class EntityManager {
 	        root.getChildren().add(center);
 	    }
 	
-		System.out.println(entity.getHitbox().getHeight());
+//		System.out.println(entity.getHitbox().getHeight());
 	    // New code for rendering hitbox debug elements
 	    Rectangle hitboxBorder = new Rectangle(
 	        entity.getHitbox().getMinX(),

@@ -90,14 +90,17 @@ public class NormalEnemy extends Unit {
 
 		if (isWalking() && frameCounter % 10 == 0) {
 			// System.out.println("frameCounter: " + frameCounter);
+			frameCounter = 0; // Avoiding overflow
 			walkSpriteCount = (++walkSpriteCount) % 6;
 			this.setSprite((facingRight ? "normal_enemy_walk_" : "flip_normal_enemy_walk_") + (walkSpriteCount + 1));
 		}
 		else if (!isWalking() && frameCounter % 10 == 0) {
+			frameCounter = 0; // Avoiding overflow
 			stillSpriteCount = (++stillSpriteCount) % 7;
 			this.setSprite((facingRight ? "normal_enemy_still_" : "flip_normal_enemy_still_") + (stillSpriteCount + 1));
 		}
 		frameCounter += 1;
+//		System.out.println(frameCounter);
 	}
 
 	@Override

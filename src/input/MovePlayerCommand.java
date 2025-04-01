@@ -14,5 +14,6 @@ public class MovePlayerCommand implements Command {
     @Override
     public void execute() {
         player.calculateSpeed(direction);
+        //TO-DO : Add walking sound
     }
 }
