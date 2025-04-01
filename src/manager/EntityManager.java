@@ -109,23 +109,27 @@ public class EntityManager {
 	}
 	
 	public void attackHit() {
-		for (AttackEntity AE : getAttackEntities()) {
-			for (Entities entity : entities ) {
-				if (entity instanceof Unit && checkCollision(AE,entity)) {
-					if (AE.getFaction() == Faction.ALLY && entity.getFaction() == Faction.ENEMY || 
-						AE.getFaction() == Faction.ENEMY && entity.getFaction() == Faction.ALLY ) {
-						Unit unit = (Unit) entity;
-						unit.takeDamage(AE.getDamage());
-						removeEntity(AE);
-						
-						if (unit.isDead()) {
-							removeEntity(unit);
-						}
-					}
-				}
-			}
-		}
+	    for (AttackEntity AE : getAttackEntities()) {
+	        for (Entities entity : entities) {
+	            if (entity instanceof Unit && checkCollision(AE, entity)) {
+	                if ((AE.getFaction() == Faction.ALLY && entity.getFaction() == Faction.ENEMY) || 
+	                    (AE.getFaction() == Faction.ENEMY && entity.getFaction() == Faction.ALLY)) {
+	                    
+	                    Unit unit = (Unit) entity;
+	                    unit.takeDamage(AE.getDamage());
+	                    removeEntity(AE); 
+
+	                    if (unit.isDead()) {
+	                        removeEntity(unit);
+	                    }
+	                    
+	                    break; // Stop checking after hitting one target
+	                }
+	            }
+	        }
+	    }
 	}
+
 	
     public static boolean checkCollision(Entities ent1, Entities ent2) {
     	Rectangle2D rect1 = ent1.getHitbox();

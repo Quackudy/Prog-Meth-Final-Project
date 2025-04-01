@@ -12,12 +12,28 @@ public class Sound {
 		this.volume = defaultVolume;
 		
 		// Play BGM (I commented it out because it's too loud lmao)
-//		String bgmpath = ClassLoader.getSystemResource("sound/testbgm.mp3").toString();
-//		Media bgm = new Media(bgmpath);
-//		bgmPlayer = new MediaPlayer(bgm);
-//		bgmPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-//		setSoundVolume(defaultVolume);
-//		bgmPlayer.play();
+		playBGM("Chrono_Trigger_theme");
+	}
+	
+	public void playBGM(String name) {
+		
+		if (bgmPlayer != null) {
+			bgmPlayer.stop();
+			bgmPlayer.dispose();
+		}
+		try {
+			String bgmpath = ClassLoader.getSystemResource("sound/" + name + ".mp3").toString();
+			Media bgm = new Media(bgmpath);
+			bgmPlayer = new MediaPlayer(bgm);
+			bgmPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+			setSoundVolume(getVolume());
+			bgmPlayer.play();
+		} catch (NullPointerException e) {
+			System.out.println("Error: BGM file not found");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	public void setSoundVolume(double volume) {

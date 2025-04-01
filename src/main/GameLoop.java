@@ -78,7 +78,7 @@ public class GameLoop implements Runnable {
         // Delay to not let thread access the to be destroyed variable
         new Thread(() -> {
             try {
-                Thread.sleep(5);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
