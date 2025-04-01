@@ -1,37 +1,54 @@
+.menu-bar {
+    -fx-background-color: transparent;
+    -fx-font-family: "Pixel Game";  /* Use the exact name returned by getFont().getName() */
+    -fx-font-size: 40px;
+}
+
+.context-menu {
+    -fx-font-family: "Pixel Game";
+    -fx-background-color: transparent;
+    -fx-font-size: 12px;
+}
+
+.label {
+    -fx-font-family: "Pixel Game";
+    -fx-font-size: 100;
+    -fx-text-fill: white; /* Ensures the text color is pure white */
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0); /* Keep this if you want the shadow */
+}
+
 .button {
-    -fx-background-color: #8B0000;
+    -fx-background-color: transparent;
     -fx-cursor: hand;
     -fx-min-width: 250px;
     -fx-min-height: 60px;
     -fx-padding: 10;
     -fx-border-width: 0;
+    -fx-font-family: "Pixel Game"; 
+    -fx-alignment: center-left; /* Align the text to the left */
 }
 
-.button .text{
-	-fx-font-size: 25px;
-	-fx-fill: white;
-	-fx-stroke: black;
-	-fx-stroke-width: 0.5px;
-	-fx-effect: dropshadow(gaussian, black, 3, 0.1, 0, 0);
+.button .text {
+    -fx-font-size: 32px;
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.5px;
+    -fx-effect: dropshadow(gaussian, black, 3, 0.1, 0, 0);
+    -fx-font-family: "Pixel Game";
 }
-
 
 .button:hover {
-    -fx-background-color: #8A2020;
-    -fx-effect: dropshadow(gaussian, black, 2, 0, 0, 0);
-    -fx-border-color: black; -fx-border-width: 1;
+    -fx-background-color: transparent;  /* Keep the button transparent */
+    -fx-border-color: transparent;  /* No border on hover */
+    -fx-border-width: 0;  /* No border width */
+    -fx-effect: dropshadow(gaussian, #DCDCDC, 10, 0.5, 0, 0);  /* Grayish-white glowing text effect */
+    -fx-font-family: "Pixel Game";
 }
 
 .button:pressed {
-    -fx-background-color: #B22222;
-    -fx-effect: dropshadow(gaussian, white, 2, 0, 0, 0);
-    -fx-border-color: white; -fx-border-width: 2;
-}
-
-.label {
-	-fx-font-size: 50px;           /* Set the font size */
-    -fx-font-weight: bold;         /* Make the font bold */
-    -fx-text-fill: white;         /* Text Color */
-    -fx-padding: 10px;             /* Add some padding around the label */
-	-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
+    -fx-background-color: transparent;  /* Keep transparent background */
+    -fx-border-color: transparent;  /* No border on press */
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, white, 2, 0, 0, 0);  /* Light shadow effect on press */
+    -fx-font-family: "Pixel Game";
 }

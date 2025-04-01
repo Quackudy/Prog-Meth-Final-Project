@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;  // Use VBox for vertical alignment
+import javafx.scene.text.Font;
 import manager.SceneManager;
 import model.GameConfigureManager;
 import model.GameMode;
@@ -20,7 +21,10 @@ public class MainMenuState implements SceneState {
     public void start(SceneManager sceneManager) {
     	// Title
     	Label Title = new Label("Oiia Leveling");
-    	
+
+        Font.loadFont(getClass().getResource("/fonts/pixel.otf").toExternalForm(), 10);
+        
+        
     	// Button
         Button singlePlayerButton = new Button("Singleplayer");
         singlePlayerButton.setOnAction(e -> {sceneManager.setState(new PlayGameState());
@@ -61,22 +65,32 @@ public class MainMenuState implements SceneState {
         
         // Use VBox for vertical arrangement
         VBox buttons = new VBox(singlePlayerButton, multiplayerButton, settingsButton, quitButton);
-        buttons.setSpacing(10);
+        buttons.setSpacing(20);
         buttons.setPadding(new Insets(5, 5, 5, 5)); // Set padding around the VBox
         buttons.setStyle("-fx-alignment: center;"); // Center the buttons horizontally
-        VBox root = new VBox(Title, buttons);
-        root.setSpacing(100);
+        AnchorPane root = new AnchorPane(Title, buttons);
+        
+        // Set buttons' position in AnchorPane (optional)
+        AnchorPane.setTopAnchor(buttons, 200.0);
+        AnchorPane.setLeftAnchor(buttons, 60.0);
+        AnchorPane.setTopAnchor(Title, 60.0);  
+        AnchorPane.setLeftAnchor(Title, 40.0); 
+   
         root.setStyle("-fx-alignment: center;"); // Center the buttons horizontally
         String cssPath = getClass().getClassLoader().getResource("css/MainMenu.css").toExternalForm();
         root.getStylesheets().add(cssPath);
         
 
         // Add Background
-        String path = ClassLoader.getSystemResource("images/MainMenuImg/MainMenuBg.png").toString();
+        String path = ClassLoader.getSystemResource("images/MainMenuImg/chatGPTbg.png").toString();
         Image image = new Image(path);
         ImageView bgView = new ImageView(image);
+        bgView.setTranslateX(30); 
+        bgView.setFitWidth(900);
+        bgView.setFitHeight(700);
         StackPane pane = new StackPane();
         pane.getChildren().addAll(bgView, root);
+      
         
         sceneManager.getStage().setScene(new Scene(pane, 800, 600));
         sceneManager.getStage().setTitle("Main Menu");

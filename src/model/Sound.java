@@ -38,7 +38,7 @@ public class Sound {
 	
 	public void setSoundVolume(double volume) {
 		this.volume = volume;
-//		bgmPlayer.setVolume(volume);
+		bgmPlayer.setVolume(volume);
 	}
 	
 	public double getVolume() {

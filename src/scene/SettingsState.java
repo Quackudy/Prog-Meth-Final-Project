@@ -48,9 +48,12 @@ public class SettingsState implements SceneState {
         root.setSpacing(50);
         
         // Add Background
-        String path = ClassLoader.getSystemResource("images/MainMenuImg/MainMenuBg.png").toString();
+        String path = ClassLoader.getSystemResource("images/MainMenuImg/chatGPTbg.png").toString();
         Image image = new Image(path);
         ImageView bgView = new ImageView(image);
+        bgView.setTranslateX(30); 
+        bgView.setFitWidth(900);
+        bgView.setFitHeight(700);
         StackPane pane = new StackPane();
         pane.getChildren().addAll(bgView, root);
         

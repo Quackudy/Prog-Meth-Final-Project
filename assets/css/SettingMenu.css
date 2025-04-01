@@ -1,16 +1,16 @@
 /* Style Slider */
 .slider {
-    -fx-pref-width: 500px;      /* Set the width of the slider */
-    -fx-max-width: 500px;       /* Ensures it doesn't stretch */
+    -fx-pref-width: 500px;        /* Set the width of the slider */
+    -fx-max-width: 500px;         /* Ensures it doesn't stretch */
     -fx-control-inner-background: #34495e; /* Dark background color */
-    -fx-accent: #1abc9c;        /* Teal color for the track */
+    -fx-accent: #1abc9c;          /* Teal color for the track */
 }
 
 .slider .thumb {
-    -fx-background-color: red;  /* Red knob */
-    -fx-background-radius: 50%;    /* Round knob */
-    -fx-pref-width: 30px;          /* Width of the knob */
-    -fx-pref-height: 30px;         /* Height of the knob */
+    -fx-background-color: red;    /* Red knob */
+    -fx-background-radius: 50%;   /* Round knob */
+    -fx-pref-width: 30px;         /* Width of the knob */
+    -fx-pref-height: 30px;        /* Height of the knob */
 }
 
 .slider .track {
@@ -23,46 +23,50 @@
 .label {
     -fx-font-size: 30px;           /* Set the font size */
     -fx-font-weight: bold;         /* Make the font bold */
-    -fx-text-fill: white;         /* Text Color */
+    -fx-font-family: "Pixel Game";  /* Set the font to Pixel Game */
+    -fx-text-fill: white;          /* Text Color */
     -fx-padding: 10px;             /* Add some padding around the label */
-	-fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, black, 5, 0.5, 0, 0); /* Shadow effect */
 }
 
 /* Style the button */
 .button {
-    -fx-background-color: #8B0000;
-    -fx-cursor: hand;
-    -fx-min-width: 300px;
-    -fx-min-height: 75px;
-    -fx-padding: 10;
-    -fx-border-width: 1;
+    -fx-background-color: #8B0000;      /* Dark red background */
+    -fx-cursor: hand;                   /* Hand cursor on hover */
+    -fx-min-width: 300px;               /* Minimum width of the button */
+    -fx-min-height: 75px;               /* Minimum height of the button */
+    -fx-padding: 10px;                  /* Padding inside the button */
+    -fx-border-width: 1px;              /* Border width */
+    -fx-border-color: transparent;      /* Transparent border to focus only on background color */
+    -fx-font-family: "Pixel Game";       /* Set the font to Pixel Game */
 }
 
-.button .text{
-	-fx-font-size: 30px;
-	-fx-fill: white;
-	-fx-stroke: black;
-	-fx-stroke-width: 1px;
-	-fx-effect: dropshadow(gaussian, black, 3, 0.1, 0, 0);
+.button .text {
+    -fx-font-size: 30px;                /* Font size of button text */
+    -fx-fill: white;                    /* Text color */
+    -fx-stroke: black;                  /* Stroke around text */
+    -fx-stroke-width: 1px;              /* Width of stroke around text */
+    -fx-effect: dropshadow(gaussian, black, 3, 0.1, 0, 0); /* Shadow effect */
 }
 
 .button:hover {
-    -fx-background-color: #8A2020;
-    -fx-border-color: black; 
-	-fx-border-width: 1;
+    -fx-background-color: #8A2020;      /* Darker red on hover */
+    -fx-border-color: black;            /* Black border on hover */
+    -fx-border-width: 1px;              /* Border width */
 }
 
 .button:pressed {
-    -fx-background-color: #B22222;
-    -fx-border-color: white; 
-	-fx-border-width: 2;
+    -fx-background-color: #B22222;      /* Even darker red when pressed */
+    -fx-border-color: white;            /* White border when pressed */
+    -fx-border-width: 2px;              /* Thicker white border when pressed */
 }
 
 /* Style Title */
-#label-title{
-	-fx-font-size: 50px;           /* Set the font size */
-	-fx-font-weight: bold;         /* Make the font bold */
-	-fx-text-fill: white;         /* Text Color */
-	-fx-padding: 10px;             /* Add some padding around the label */
-	-fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
+#label-title {
+    -fx-font-size: 50px;           /* Set the font size */
+    -fx-font-weight: bold;         /* Make the font bold */
+    -fx-font-family: "Pixel Game";  /* Set the font to Pixel Game */
+    -fx-text-fill: white;          /* Text color */
+    -fx-padding: 10px;             /* Padding around the label */
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0); /* Shadow effect */
 }

@@ -11,6 +11,8 @@ public class GameApplication extends Application {
     public void start(Stage stage) {
         SceneManager.getInstance(stage).setState(new MainMenuState()); // Set the main menu as the initial state
         GameConfigureManager.getInstance();
+        
+        stage.setResizable(false);
     }
 
     public static void main(String[] args) {
