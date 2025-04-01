@@ -53,6 +53,10 @@ public class GameConfigureManager {
     		sound.ButtonClick();
     	}
     }
+    
+	public void playBGM(String name) {
+		sound.playBGM(name);
+	}
 
 
 }

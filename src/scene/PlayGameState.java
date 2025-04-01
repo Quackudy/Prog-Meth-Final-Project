@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 import main.GameLoop;
 import manager.SceneManager;
 import map.GrassLand;
+import model.GameConfigureManager;
 
 public class PlayGameState implements SceneState {
     private GameLoop gameLoop;
@@ -13,6 +14,9 @@ public class PlayGameState implements SceneState {
 
     @Override
     public void start(SceneManager sceneManager) {
+    	
+    	GameConfigureManager.getInstance().playBGM("Chrono_Trigger_battle");
+    	
         grassLand = new GrassLand();
 
         Pane rootBackground = new Pane();
