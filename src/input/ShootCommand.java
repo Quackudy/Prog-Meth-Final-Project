@@ -1,6 +1,7 @@
 package input;
 
 import entities.Player;
+import model.GameConfigureManager;
 
 public class ShootCommand implements Command {
     private Player player;

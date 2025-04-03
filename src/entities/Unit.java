@@ -21,6 +21,7 @@ public abstract class Unit extends Entities implements Damageable {
     @Override
     public void takeDamage(int damage) {
         setHealth(getHealth()-damage);
+        //TODO-Add sound hit damage
         
     }
 

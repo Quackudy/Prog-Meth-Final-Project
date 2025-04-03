@@ -4,6 +4,7 @@ package entities;
 
 import input.Direction;
 import javafx.scene.layout.Pane;
+import model.GameConfigureManager;
 
 public class Player extends Unit  {
     private final float SPEEDFACTOR = 10.0f;
@@ -14,6 +15,7 @@ public class Player extends Unit  {
     private int frameCounter = 0;
     private Bow bow = null;
     private boolean facingRight = true;
+    private  boolean facingDown = true; // Add FacingDown animation with eyes
 
     public Player(float xPos, float yPos) {	
         super(xPos, yPos);
@@ -21,6 +23,7 @@ public class Player extends Unit  {
         super.setSize(60, 60);
         super.setFaction(Faction.ALLY);
        
+        // Face Back
         this.loadSprite("walk_1", "images/Blue_player/blue_walk_1.png");
         this.loadSprite("walk_2", "images/Blue_player/blue_walk_2.png");
         this.loadSprite("walk_3", "images/Blue_player/blue_walk_3.png");
@@ -33,6 +36,7 @@ public class Player extends Unit  {
         this.loadSprite("flip_walk_4", "images/Blue_player/flip_blue_walk_4.png");
         this.loadSprite("flip_walk_5", "images/Blue_player/flip_blue_walk_5.png");
         this.loadSprite("flip_walk_6", "images/Blue_player/flip_blue_walk_6.png");
+        //TODO : ADD Face Front Sprite
 
         this.setSprite("walk_1");
     }
@@ -59,6 +63,7 @@ public class Player extends Unit  {
 
         if (isWalking() && frameCounter % 10 == 0) {
             walkSpriteCount = (++walkSpriteCount) % 6;
+            // TODO : Change all this to handle facingDown case
             this.setSprite((facingRight ? "walk_" : "flip_walk_") + (walkSpriteCount + 1));
         } else if (!isWalking()) {
             this.setSprite(facingRight ? "walk_1" : "flip_walk_1");
@@ -83,9 +88,11 @@ public class Player extends Unit  {
                 }
                 break;
             case Direction.UP:
+            	// TODO: Change facingDown = false;
                 ySpeed += -1 * SPEEDFACTOR;
                 break;
             case Direction.DOWN:
+            	// TODO: Change facingDown = true;
                 ySpeed += 1 * SPEEDFACTOR;
                 break;
         }
@@ -111,6 +118,7 @@ public class Player extends Unit  {
         if (bow == null) {
         	//bow = new Bow(this, facingRight,direction);
             bow = EntityFactory.createBow(this, facingRight, direction);
+            GameConfigureManager.getInstance().playsfx("shoot"); // Add Shoot sound (Have to be here to prevent sound bugs)
         }
     }
 

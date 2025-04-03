@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import model.GameConfigureManager;
 
 public class EntityManager {
     private static EntityManager instance;
@@ -117,10 +118,14 @@ public class EntityManager {
 	                    
 	                    Unit unit = (Unit) entity;
 	                    unit.takeDamage(AE.getDamage());
-	                    removeEntity(AE); 
+	                    removeEntity(AE);
+	                    // TODO: Hit sfx
+	                    GameConfigureManager.getInstance().playsfx("arrowhit");
 
 	                    if (unit.isDead()) {
 	                        removeEntity(unit);
+	                        // TODO: Dead sfx
+	                        GameConfigureManager.getInstance().playsfx("mondead");
 	                    }
 	                    
 	                    break; // Stop checking after hitting one target

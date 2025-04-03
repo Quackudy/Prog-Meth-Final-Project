@@ -61,4 +61,27 @@ public class Sound {
 		sfxPlayer.play();		
 	}
 	// TO-DO : Sound effect [Shoot, die, getHit, etc.]
+	public void ShootArrow() {
+		String sfxpath = ClassLoader.getSystemResource("sound/shootArrow.mp3").toString();
+		Media sfx = new Media(sfxpath);
+		MediaPlayer sfxPlayer = new MediaPlayer(sfx);
+		sfxPlayer.setVolume(getVolume()- 0.3);
+		sfxPlayer.play();	
+	}
+	
+	public void ArrowHit() {
+		String sfxpath = ClassLoader.getSystemResource("sound/hitarrow.MP3").toString();
+		Media sfx = new Media(sfxpath);
+		MediaPlayer sfxPlayer = new MediaPlayer(sfx);
+		sfxPlayer.setVolume(getVolume());
+		sfxPlayer.play();	
+	}
+	
+	public void EnemyDeath() {
+		String sfxpath = ClassLoader.getSystemResource("sound/mondead.MP3").toString();
+		Media sfx = new Media(sfxpath);
+		MediaPlayer sfxPlayer = new MediaPlayer(sfx);
+		sfxPlayer.setVolume(getVolume());
+		sfxPlayer.play();
+	}
 }

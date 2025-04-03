@@ -52,6 +52,15 @@ public class GameConfigureManager {
     	else if (sfx.equals("click")) {
     		sound.ButtonClick();
     	}
+    	else if (sfx.equals("shoot")) {
+    		sound.ShootArrow();
+    	}
+    	else if (sfx.equals("arrowhit")) {
+    		sound.ArrowHit();
+    	}
+    	else if (sfx.equals("mondead")) {
+    		sound.EnemyDeath();
+    	}
     }
     
 	public void playBGM(String name) {
