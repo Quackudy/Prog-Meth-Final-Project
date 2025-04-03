@@ -65,7 +65,7 @@ public class Sound {
 		String sfxpath = ClassLoader.getSystemResource("sound/shootArrow.mp3").toString();
 		Media sfx = new Media(sfxpath);
 		MediaPlayer sfxPlayer = new MediaPlayer(sfx);
-		sfxPlayer.setVolume(getVolume()- 0.3);
+		sfxPlayer.setVolume(getVolume());
 		sfxPlayer.play();	
 	}
 	
