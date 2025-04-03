@@ -36,8 +36,20 @@ public class Player extends Unit  {
         this.loadSprite("flip_walk_4", "images/Blue_player/flip_blue_walk_4.png");
         this.loadSprite("flip_walk_5", "images/Blue_player/flip_blue_walk_5.png");
         this.loadSprite("flip_walk_6", "images/Blue_player/flip_blue_walk_6.png");
-        //TODO : ADD Face Front Sprite
-
+        //TODO : ADD FaceDown Sprite
+        this.loadSprite("fdwalk_1", "images/Blue_player/flip_blue_walk_1_facedown.png"); // flip and normal were swap lol
+        this.loadSprite("fdwalk_2", "images/Blue_player/flip_blue_walk_2_facedown.png");
+        this.loadSprite("fdwalk_3", "images/Blue_player/flip_blue_walk_3_facedown.png");
+        this.loadSprite("fdwalk_4", "images/Blue_player/flip_blue_walk_4_facedown.png");
+        this.loadSprite("fdwalk_5", "images/Blue_player/flip_blue_walk_5_facedown.png");
+        this.loadSprite("fdwalk_6", "images/Blue_player/flip_blue_walk_6_facedown.png");
+        this.loadSprite("fdflip_walk_1", "images/Blue_player/blue_walk_1_facedown.png");
+        this.loadSprite("fdflip_walk_2", "images/Blue_player/blue_walk_2_facedown.png");
+        this.loadSprite("fdflip_walk_3", "images/Blue_player/blue_walk_3_facedown.png");
+        this.loadSprite("fdflip_walk_4", "images/Blue_player/blue_walk_4_facedown.png");
+        this.loadSprite("fdflip_walk_5", "images/Blue_player/blue_walk_5_facedown.png");
+        this.loadSprite("fdflip_walk_6", "images/Blue_player/blue_walk_6_facedown.png");
+        
         this.setSprite("walk_1");
     }
 
@@ -64,9 +76,35 @@ public class Player extends Unit  {
         if (isWalking() && frameCounter % 10 == 0) {
             walkSpriteCount = (++walkSpriteCount) % 6;
             // TODO : Change all this to handle facingDown case
-            this.setSprite((facingRight ? "walk_" : "flip_walk_") + (walkSpriteCount + 1));
+            if (!facingDown) {
+            	if (facingRight) {
+            		this.setSprite("walk_" + (walkSpriteCount+1));
+            	} else {
+            		this.setSprite("flip_walk_" + (walkSpriteCount+1));
+            	}
+            } else {
+            	// Shadow MISSING WHY!??
+            	if (facingRight) {
+            		this.setSprite("fdwalk_" + (walkSpriteCount+1));
+            	} else {
+            		this.setSprite("fdflip_walk_" + (walkSpriteCount+1));
+            	}
+            }
         } else if (!isWalking()) {
-            this.setSprite(facingRight ? "walk_1" : "flip_walk_1");
+        	if (!facingDown) {
+        		if (facingRight) {
+        			this.setSprite("walk_1");
+        		} else {
+        			this.setSprite("flip_walk_1");
+        		}
+        	} else {
+        		// Shadow MISSING WHY!??
+        		if (facingRight) {
+        			this.setSprite("fdwalk_1");
+        		} else {
+        			this.setSprite("fdflip_walk_1");
+        		}
+        	}
             walkSpriteCount = 0;
         }
 
@@ -90,10 +128,16 @@ public class Player extends Unit  {
             case Direction.UP:
             	// TODO: Change facingDown = false;
                 ySpeed += -1 * SPEEDFACTOR;
+                if (facingDown) {
+                	facingDown = false;
+                }
                 break;
             case Direction.DOWN:
             	// TODO: Change facingDown = true;
                 ySpeed += 1 * SPEEDFACTOR;
+                if (!facingDown) {
+                	facingDown = true;
+                }
                 break;
         }
     }
