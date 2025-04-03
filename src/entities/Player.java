@@ -2,7 +2,10 @@
 package entities;
 
 
+import java.util.concurrent.CopyOnWriteArraySet;
+
 import input.Direction;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import model.GameConfigureManager;
 
@@ -158,10 +161,43 @@ public class Player extends Unit  {
         return xSpeed != 0 || ySpeed != 0;
     }
 
-    public void shootArrow(Direction direction) {
+    public void shootArrow(CopyOnWriteArraySet<KeyCode> activeKeys) {
         if (bow == null) {
-        	//bow = new Bow(this, facingRight,direction);
-            bow = EntityFactory.createBow(this, facingRight, direction);
+        	
+        	// TODO : Fix this
+        	if (activeKeys.contains(KeyCode.Y) && activeKeys.contains(KeyCode.G)) {
+        		bow = new Bow(this, facingRight, Direction.LEFTUP);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.LEFTUP);
+        	}
+        	else if (activeKeys.contains(KeyCode.Y) && activeKeys.contains(KeyCode.J)) {
+        		bow = new Bow(this, facingRight, Direction.RIGHTUP);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.RIGHTUP);
+        	}
+        	else if (activeKeys.contains(KeyCode.H) && activeKeys.contains(KeyCode.G)) {
+        		bow = new Bow(this, facingRight, Direction.LEFTDOWN);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.LEFTDOWN);
+        	}
+        	else if (activeKeys.contains(KeyCode.H) && activeKeys.contains(KeyCode.J)) {
+        		bow = new Bow(this, facingRight, Direction.RIGHTDOWN);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.RIGHTDOWN);
+        	}
+        	else if (activeKeys.contains(KeyCode.Y)) {
+        		bow = new Bow(this, facingRight, Direction.UP);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.UP);
+        	}
+        	else if (activeKeys.contains(KeyCode.H)) {
+        		bow = new Bow(this, facingRight, Direction.DOWN);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.DOWN);
+        	}
+        	else if (activeKeys.contains(KeyCode.G)) {
+        		bow = new Bow(this, facingRight, Direction.LEFT);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.LEFT);
+        	}
+        	else if (activeKeys.contains(KeyCode.J)) {
+        		bow = new Bow(this, facingRight, Direction.RIGHT);
+        		bow = EntityFactory.createBow(this, facingRight, Direction.RIGHT);
+        	}
+        
             GameConfigureManager.getInstance().playsfx("shoot"); // Add Shoot sound (Have to be here to prevent sound bugs)
         }
     }

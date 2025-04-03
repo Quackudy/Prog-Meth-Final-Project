@@ -44,10 +44,10 @@ public class GameLoop implements Runnable {
         inputHandler.bindKey(KeyCode.D, new MovePlayerCommand(player, Direction.RIGHT));
         inputHandler.bindKey(KeyCode.S, new MovePlayerCommand(player, Direction.DOWN));
         
-        inputHandler.bindKey(KeyCode.Y, new ShootCommand(player, Direction.UP));
-        inputHandler.bindKey(KeyCode.G, new ShootCommand(player, Direction.LEFT));
-        inputHandler.bindKey(KeyCode.J, new ShootCommand(player, Direction.RIGHT));
-        inputHandler.bindKey(KeyCode.H, new ShootCommand(player, Direction.DOWN));
+        inputHandler.bindKey(KeyCode.Y, new ShootCommand(player, activeKeys));
+        inputHandler.bindKey(KeyCode.G, new ShootCommand(player, activeKeys));
+        inputHandler.bindKey(KeyCode.J, new ShootCommand(player, activeKeys));
+        inputHandler.bindKey(KeyCode.H, new ShootCommand(player, activeKeys));
         
         // TODO: BindKey for diagonal arrow shoot
         // Diagonal shooting --> I don't know how to combine KEY in javaFX lmao
