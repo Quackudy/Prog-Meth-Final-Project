@@ -146,7 +146,7 @@ public class EntityManager {
 	                if (enemy.canAttack()) {
 	                    p.takeDamage(enemy.getDmg());
 	                    enemy.registerAttack();
-//	                    System.out.println("HIT");
+	                    System.out.println("HIT");
 
 	                    if (p.isDead()) {
 	                        System.out.println("DEAD");
