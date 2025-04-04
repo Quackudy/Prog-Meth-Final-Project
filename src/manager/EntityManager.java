@@ -9,6 +9,7 @@ import entities.AttackEntity;
 import entities.Unit;
 import entities.Entities;
 import entities.Faction;
+import entities.NormalEnemy;
 import entities.Player;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.Pane;
@@ -119,12 +120,10 @@ public class EntityManager {
 	                    Unit unit = (Unit) entity;
 	                    unit.takeDamage(AE.getDamage());
 	                    removeEntity(AE);
-	                    // TODO: Hit sfx
 	                    GameConfigureManager.getInstance().playsfx("arrowhit");
 
 	                    if (unit.isDead()) {
 	                        removeEntity(unit);
-	                        // TODO: Dead sfx
 	                        GameConfigureManager.getInstance().playsfx("mondead");
 	                    }
 	                    
@@ -134,7 +133,30 @@ public class EntityManager {
 	        }
 	    }
 	}
+	
+	// TODO : Add playerAttacked method
+	public void playerAttacked() {
+		for (Player p : getPlayers()) {
+			for (Entities entity : entities) {
+				if (entity instanceof NormalEnemy && checkCollision(p, entity)) {
+					
+					// TODO : ADD delay between hit
+					NormalEnemy enemy = (NormalEnemy) entity;
 
+	                if (enemy.canAttack()) {
+	                    p.takeDamage(enemy.getDmg());
+	                    enemy.registerAttack();
+//	                    System.out.println("HIT");
+
+	                    if (p.isDead()) {
+	                        System.out.println("DEAD");
+	                    }
+	                }
+
+				}
+			}
+		}
+	}
 	
     public static boolean checkCollision(Entities ent1, Entities ent2) {
     	Rectangle2D rect1 = ent1.getHitbox();

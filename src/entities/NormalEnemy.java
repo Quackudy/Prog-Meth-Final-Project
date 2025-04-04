@@ -10,6 +10,10 @@ public class NormalEnemy extends Unit {
 	private float sizeFactor = 5.0f;
 	private int walkSpriteCount = 0;
 	private int stillSpriteCount = 0;
+	private int dmg = 5; // ADD dmg to NormalEnemy
+	// Add cooldown to attack
+	private long lastAttackTime = 0;
+    private static final long ATTACK_COOLDOWN_MS = 1000;
 
 	public NormalEnemy(float xPos, float yPos) {
 		super(xPos, yPos);
@@ -101,6 +105,18 @@ public class NormalEnemy extends Unit {
 		}
 		frameCounter += 1;
 //		System.out.println(frameCounter);
+	}
+	
+	public boolean canAttack() {
+        return System.currentTimeMillis() - lastAttackTime >= ATTACK_COOLDOWN_MS;
+    }
+
+    public void registerAttack() {
+        lastAttackTime = System.currentTimeMillis();
+    }
+	
+	public int getDmg() {
+		return this.dmg;
 	}
 
 	@Override

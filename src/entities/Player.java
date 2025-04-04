@@ -18,7 +18,7 @@ public class Player extends Unit  {
     private int frameCounter = 0;
     private Bow bow = null;
     private boolean facingRight = true;
-    private  boolean facingDown = true; // Add FacingDown animation with eyes
+    private  boolean facingDown = true;
 
     public Player(float xPos, float yPos) {	
         super(xPos, yPos);
@@ -39,7 +39,7 @@ public class Player extends Unit  {
         this.loadSprite("flip_walk_4", "images/Blue_player/flip_blue_walk_4.png");
         this.loadSprite("flip_walk_5", "images/Blue_player/flip_blue_walk_5.png");
         this.loadSprite("flip_walk_6", "images/Blue_player/flip_blue_walk_6.png");
-        //TODO : ADD FaceDown Sprite
+        //ADD FaceDown Sprite
         this.loadSprite("fdwalk_1", "images/Blue_player/flip_blue_walk_1_facedown.png"); // flip and normal were swap lol
         this.loadSprite("fdwalk_2", "images/Blue_player/flip_blue_walk_2_facedown.png");
         this.loadSprite("fdwalk_3", "images/Blue_player/flip_blue_walk_3_facedown.png");
@@ -54,6 +54,9 @@ public class Player extends Unit  {
         this.loadSprite("fdflip_walk_6", "images/Blue_player/blue_walk_6_facedown.png");
         
         this.setSprite("walk_1");
+        
+        // Set HEALTH
+        setHealth(50);
     }
 
     @Override
@@ -164,7 +167,7 @@ public class Player extends Unit  {
     public void shootArrow(CopyOnWriteArraySet<KeyCode> activeKeys) {
         if (bow == null) {
         	
-        	// TODO : Fix this
+        	// TODO : Fix Delay
         	if (activeKeys.contains(KeyCode.Y) && activeKeys.contains(KeyCode.G)) {
         		bow = new Bow(this, facingRight, Direction.LEFTUP);
         		bow = EntityFactory.createBow(this, facingRight, Direction.LEFTUP);
@@ -201,5 +204,5 @@ public class Player extends Unit  {
             GameConfigureManager.getInstance().playsfx("shoot"); // Add Shoot sound (Have to be here to prevent sound bugs)
         }
     }
-
+    
 }

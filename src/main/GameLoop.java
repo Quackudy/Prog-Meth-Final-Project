@@ -49,13 +49,6 @@ public class GameLoop implements Runnable {
         inputHandler.bindKey(KeyCode.J, new ShootCommand(player, activeKeys));
         inputHandler.bindKey(KeyCode.H, new ShootCommand(player, activeKeys));
         
-        // TODO: BindKey for diagonal arrow shoot
-        // Diagonal shooting --> I don't know how to combine KEY in javaFX lmao
-//        inputHandler.bindKey(KeyCode.Y | KeyCode.G, new ShootCommand(player, Direction.LEFTUP));
-//        inputHandler.bindKey(KeyCode.Y | KeyCode.J, new ShootCommand(player, Direction.RIGHTUP));
-//        inputHandler.bindKey(KeyCode.H | KeyCode.G, new ShootCommand(player, Direction.LEFTDOWN));
-//        inputHandler.bindKey(KeyCode.H | KeyCode.J, new ShootCommand(player, Direction.RIGHTDOWN));
-        
         inputHandler.bindKey(KeyCode.ESCAPE, new ExitGameCommand(this));
         
     }
@@ -133,6 +126,8 @@ public class GameLoop implements Runnable {
         entityManager.updateAll(deltaTime);
         entityManager.removeOffScreenAttackEntity();
         entityManager.attackHit();
+        // TODO:Add takeHit from monster
+        entityManager.playerAttacked();
     }
 
     private void render() {

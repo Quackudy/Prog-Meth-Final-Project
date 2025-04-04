@@ -40,7 +40,8 @@ public class Arrow extends AttackEntity {
             case RIGHT:
                 this.setSprite("arrow_right");
                 break;
-            //TODO:ADD DIAGONAL ARROW
+                
+            //DIAGONAL ARROW
             case LEFTDOWN:
             	this.setSprite("arrow_leftdown");
             	break;
@@ -61,9 +62,6 @@ public class Arrow extends AttackEntity {
 
     @Override
     public void update(float deltaTime) {
-//        this.xPos += speedFactor * deltaTime * (direction==Direction.LEFT ? -1 : (direction==Direction.RIGHT ? 1 : 0));
-//        this.yPos += speedFactor * deltaTime * (direction==Direction.UP ? -1 : (direction==Direction.DOWN ? 1 : 0));
-    	
     	// Vertical movement (up or down)
         if (direction == Direction.UP) {
             this.yPos -= speedFactor * deltaTime;
