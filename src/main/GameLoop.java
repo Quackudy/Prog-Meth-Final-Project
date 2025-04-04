@@ -97,7 +97,8 @@ public class GameLoop {
 		Platform.runLater(() -> {
 			root.getChildren().clear();
 	        EntityManager.destroyInstance();
-	        SceneManager.getInstance().setState(new MainMenuState());
+	        // Have to Comment this out sorry I cannot pause the game if its here
+//	        SceneManager.getInstance().setState(new MainMenuState());
 		});
 
     }

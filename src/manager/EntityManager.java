@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import entities.AttackEntity;
 import entities.Unit;
+import input.ExitGameCommand;
 import entities.Entities;
 import entities.Faction;
 import entities.NormalEnemy;
@@ -16,7 +17,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import main.GameLoop;
 import model.GameConfigureManager;
+import scene.MainMenuState;
 
 public class EntityManager {
     private static EntityManager instance;
@@ -26,7 +29,13 @@ public class EntityManager {
     private final List<Unit> enemies = new CopyOnWriteArrayList<>();
     private final List<AttackEntity> attackEntities = new CopyOnWriteArrayList<>();
     private boolean debugMode = false;
+    // Player Death
+    private Runnable onPlayerDeath;
 
+    public void setOnPlayerDeath(Runnable onPlayerDeath) {
+        this.onPlayerDeath = onPlayerDeath;
+    }
+    
     private EntityManager() {}
 
     public static EntityManager getInstance() {
@@ -138,13 +147,11 @@ public class EntityManager {
 	    }
 	}
 	
-	// TODO : Add playerAttacked method
 	public void playerAttacked() {
 		for (Player p : getPlayers()) {
 			for (Entities entity : entities) {
 				if (entity instanceof NormalEnemy && checkCollision(p, entity)) {
 					
-					// TODO : ADD delay between hit
 					NormalEnemy enemy = (NormalEnemy) entity;
 
 	                if (enemy.canAttack()) {
@@ -154,6 +161,8 @@ public class EntityManager {
 
 	                    if (p.isDead()) {
 	                        System.out.println("DEAD");
+	                        // TODO : Change to Death Scene
+	                        javafx.application.Platform.runLater(onPlayerDeath);
 	                    }
 	                }
 

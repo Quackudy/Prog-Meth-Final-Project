@@ -1,7 +1,9 @@
 package input;
 
 import main.GameLoop;
+import manager.SceneManager;
 import model.GameConfigureManager;
+import scene.MainMenuState;
 
 public class ExitGameCommand implements Command {
 
@@ -15,6 +17,7 @@ public class ExitGameCommand implements Command {
     @Override
     public void execute() {
         gameLoop.stop();
+        SceneManager.getInstance().setState(new MainMenuState());
         GameConfigureManager.getInstance().playBGM("Chrono_Trigger_Theme");
     }
 }
