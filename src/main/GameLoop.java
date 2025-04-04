@@ -1,31 +1,31 @@
-
 package main;
 
-import java.util.concurrent.CopyOnWriteArraySet;
-import manager.EntityManager;
-import manager.SceneManager;
-import scene.MainMenuState;
-import entities.EntityFactory;
-import entities.Player;
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
+import javafx.scene.layout.Pane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import input.Direction;
 import input.ExitGameCommand;
 import input.InputHandler;
 import input.MovePlayerCommand;
 import input.ShootCommand;
-import javafx.application.Platform;
-import javafx.scene.layout.Pane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import manager.EntityManager;
+import manager.SceneManager;
+import scene.MainMenuState;
 
-public class GameLoop implements Runnable {
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import entities.EntityFactory;
+import entities.Player;
+
+public class GameLoop {
     private boolean running = false;
     private final int TARGET_FPS = 60;
-    private long lastLoopTime;
     private Pane root;
     private EntityManager entityManager = EntityManager.getInstance();
     private InputHandler inputHandler = new InputHandler();
     private final CopyOnWriteArraySet<KeyCode> activeKeys = new CopyOnWriteArraySet<>();
-    Thread gameThread = new Thread(this);
 
     public GameLoop(Pane root, boolean debugMode) {
         this.root = root;
@@ -35,8 +35,6 @@ public class GameLoop implements Runnable {
     }
 
     private void initializeInputHandler() {
-    	//come here to fix code for multiplayer later
-    	
         Player player = entityManager.getPlayer(0);
         
         inputHandler.bindKey(KeyCode.W, new MovePlayerCommand(player, Direction.UP));
@@ -50,7 +48,6 @@ public class GameLoop implements Runnable {
         inputHandler.bindKey(KeyCode.H, new ShootCommand(player, activeKeys));
         
         inputHandler.bindKey(KeyCode.ESCAPE, new ExitGameCommand(this));
-        
     }
 
     private void initializeEntities() {
@@ -70,53 +67,39 @@ public class GameLoop implements Runnable {
 
     public void start() {
         running = true;
-        gameThread.start();
+        new AnimationTimer() {
+        	long lastUpdateTime = 0; // Store the last update time
+
+        	@Override
+        	public void handle(long now) {
+        	    if (!running) {
+        	        stop();
+        	        return;
+        	    }
+
+        	    if (lastUpdateTime != 0) {
+        	        long deltaTime = now - lastUpdateTime;  // Time difference in nanoseconds
+        	        // Now convert deltaTime to seconds if needed:
+        	        float deltaTimeInSeconds = deltaTime / 100000000.0f;
+        	        update(deltaTimeInSeconds);
+        	    }
+        	    
+        	    lastUpdateTime = now;  // Update the last update time
+        	    root.getChildren().clear();
+        	    render();
+        	}
+        }.start();
     }
 
     public void stop() {
         running = false;
-        // Delay to not let thread access the to be destroyed variable
-        new Thread(() -> {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Platform.runLater(() -> {
-                EntityManager.destroyInstance();
-                SceneManager.getInstance().setState(new MainMenuState());
-            });
-        }).start();
-    }
+        // No need for Platform.runLater(), the scene and entities can be updated directly here
+		Platform.runLater(() -> {
+			root.getChildren().clear();
+	        EntityManager.destroyInstance();
+	        SceneManager.getInstance().setState(new MainMenuState());
+		});
 
-    @Override
-    public void run() {
-    	
-    	//Uncomment to print list of initialized entity (only at the start of the game)
-    	//entityManager.printEntities();
-    	
-        lastLoopTime = System.nanoTime();
-        while (running) {
-            long now = System.nanoTime();
-            float deltaTime = (float) (now - lastLoopTime) / 100000000; // Convert to milliseconds or second idk but it works
-            lastLoopTime = now;
-
-            update(deltaTime);
-
-            Platform.runLater(() -> {
-                root.getChildren().clear();
-                render();
-            });
-
-            try {
-                long sleepTime = (1000 / TARGET_FPS) - (System.nanoTime() - now) / 1000000;
-                if (sleepTime > 0) {
-                    Thread.sleep(sleepTime);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void update(float deltaTime) {
@@ -124,10 +107,6 @@ public class GameLoop implements Runnable {
             inputHandler.handleInput(keyCode);
         }
         entityManager.updateAll(deltaTime);
-        entityManager.removeOffScreenAttackEntity();
-        entityManager.attackHit();
-        // TODO:Add takeHit from monster
-        entityManager.playerAttacked();
     }
 
     private void render() {

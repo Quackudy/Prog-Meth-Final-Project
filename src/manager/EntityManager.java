@@ -89,6 +89,10 @@ public class EntityManager {
         for (Entities entity : entities) {
             entity.update(deltaTime);
         }
+        
+        removeOffScreenAttackEntity();
+        attackEntityHit();
+        playerAttacked();
     }
 
     public void renderAll(Pane root) {
@@ -110,7 +114,7 @@ public class EntityManager {
 		}
 	}
 	
-	public void attackHit() {
+	public void attackEntityHit() {
 	    for (AttackEntity AE : getAttackEntities()) {
 	        for (Entities entity : entities) {
 	            if (entity instanceof Unit && checkCollision(AE, entity)) {
